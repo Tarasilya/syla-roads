@@ -2,7 +2,7 @@
 #include "game.h"
 
 int main() {
-	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(600, 600), "SYLA");
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(600, 600), "SYLA", sf::Style::Fullscreen);
 	Painter* painter = new Painter(window);
 	Game* game = new Game(painter);
 

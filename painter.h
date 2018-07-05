@@ -13,4 +13,5 @@ public:
 	Painter(sf::RenderWindow* window);
 	void draw(const Rectangle& rect);
 	void draw(const Circle& circle);
+	void draw(const Line& line);
 };
