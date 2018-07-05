@@ -11,7 +11,7 @@ private:
 	int window_height_;
 public:
 	Painter(sf::RenderWindow* window);
-	void draw(const Rectangle& rect);
-	void draw(const Circle& circle);
-	void draw(const Line& line);
+	void Draw(const Rectangle& rect);
+	void Draw(const Circle& circle);
+	void Draw(const Line& line);
 };

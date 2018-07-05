@@ -5,8 +5,12 @@
 class Game {
 private:
 	Painter* painter_;
+	vector<GameObject*> objects_;
+
+	void InitMap();
+	
 public: 
 	Game(Painter* painter);
-	void run();
-	void redraw();
+	void Run();
+	void Draw();
 };

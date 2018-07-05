@@ -8,7 +8,7 @@ Painter::Painter(sf::RenderWindow* window) {
 	window_width_ = window_->getSize().x;
 	window_height_ = window_->getSize().y;
 }
-void Painter::draw(const Rectangle& rect) {
+void Painter::Draw(const Rectangle& rect) {
 	sf::ConvexShape draw_rect;
 
 	draw_rect.setPointCount(4);
