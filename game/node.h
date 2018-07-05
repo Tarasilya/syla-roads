@@ -2,6 +2,7 @@
 #define __NODE_H__
 
 #include "enum.h"
+#include "game_object.h"
 
 class Node : public GameObject
 {
