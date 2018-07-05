@@ -6,12 +6,13 @@
 class Node : public GameObject
 {
 private:
-    NodeType type_;
-    Fraction entity_; // Player1, Player2, Neutral
+    Fraction entity_;
 
 public:
-    Fraction GetPlayer();
-    NodeType GetType();
+    Fraction GetFraction();
+    virtual void Tick() = 0;
+    virtual void Draw() = 0;
+    virtual bool ProcessClick(double x_scr, double y_scr) = 0;
 };
 
 

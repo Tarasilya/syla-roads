@@ -8,16 +8,18 @@ enum Fraction
     NEUTRAL
 };
 
-enum NodeType
-{
-    MINE,
-    CITY
-};
-
 enum RoadState
 {
+    CONSTRUCTION,
     TRADE,
     WAR
+};
+
+enum Actions
+{
+    N, // Nothing
+    B, // Build road to another node
+    S // Send traders to another city
 };
 
 
