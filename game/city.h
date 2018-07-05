@@ -2,6 +2,7 @@
 #define __CITY_H__
 
 #include "road.h"
+#include "painter.h"
 
 class City : public Node
 {
@@ -16,14 +17,6 @@ private:
 
 public:
     City(int x_coord, int y_coord, int index)
-    {
-        x = x_coord;
-        y = y_coord;
-        city_index_ = index;
-        syla_ = 0;
-        capacity_ = 100;
-        wall_ = 100;
-    }
 
     void SendCrew(double syla_rate, Road* target_road);
     void DamageWall(double syla_rate);
