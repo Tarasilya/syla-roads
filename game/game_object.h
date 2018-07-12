@@ -1,11 +1,11 @@
-#ifndef __GAMEOBJECT_H__
-#define __GAMEOBJECT_H__
+#pragma once
+
+#include "../painter.h"
 
 class GameObject
 {
 public:
     virtual void Tick() = 0;
-    virtual void Draw() = 0;
-    virtual bool ProcessClick(double x_scr, double y_scr) = 0;
+    virtual void Draw(Painter* painter) = 0;
+    virtual bool ProcessClick(int x_scr, int y_scr) = 0;
 };
-#endif // __GAMEOBJECT_H__

@@ -7,13 +7,10 @@
 class Node : public GameObject
 {
 private:
-    Fraction entity_;
+    Fraction fraction_;
 
 public:
     Fraction GetFraction();
-    virtual void Tick() = 0;
-    virtual void Draw() = 0;
-    virtual bool ProcessClick(double x_scr, double y_scr) = 0;
 };
 
 

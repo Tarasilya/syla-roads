@@ -3,11 +3,13 @@
 
 #include "crew.h"
 #include "enum.h"
+#include "../painter.h"
+#include "game_object.h"
 #include <vector>
 
 class City;
 
-class Road
+class Road : public GameObject
 {
 private:
     std::vector<int> cities_indices_;
@@ -21,9 +23,10 @@ private:
     RoadState state_;
 
 public:
+    Road(std::vector<City*> cities);
     void Tick();
-    void Draw();
-    bool ProcessClick(double x_scr, double y_scr);
+    void Draw(Painter* painter);
+    bool ProcessClick(int x_scr, int y_scr);
 
     int GetCityPositionInVectors(int city_index);
     void BuildRoad(int city_index, double syla);

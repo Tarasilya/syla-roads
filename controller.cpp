@@ -21,7 +21,7 @@ int main() {
 	        }
 	    }		
 		window->clear();
-		game->redraw();
+		game->Redraw();
 		window->display();
 	}
 

@@ -1,7 +1,8 @@
-#ifndef __CITY_H__
-#define __CITY_H__
+#pragma once
 
 #include <vector>
+#include "node.h"
+#include "../painter.h"
 
 class Road;
 
@@ -25,8 +26,10 @@ public:
     double CalculateSylaOutflux();
 
     void Tick();
-    void Draw();
-    bool ProcessClick(double x_scr, double y_scr);
+    void Draw(Painter* painter);
+    bool ProcessClick(int x_scr, int y_scr);
+
+    int x();
+    int y();
 };
 
-#endif

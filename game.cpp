@@ -1,23 +1,26 @@
 #include "game.h"
 #include "painter.h"
+#include "game/road.h"
+#include "game/city.h"
+#include "game/game_object.h"
 
 Game::Game(Painter* painter) {
 	painter_ = painter;
 	InitMap();
 }
 
-Game::IdnitMap() {
+void Game::InitMap() {
 	City* city_one = new City(200, 100, 0);
-	City* city_two = new City(400, 100, 1);
+	City* city_two = new City(400, 300, 1);
 	objects_.push_back(city_one);
 	objects_.push_back(city_two);
-	vector<City*> cities;
+	std::vector<City*> cities;
 	cities.push_back(city_one);
 	cities.push_back(city_two);
-	objects_.push_back(new Road(cities))
+	objects_.push_back(new Road(cities));
 }
 
-void Game::Draw() {
+void Game::Redraw() {
 	for (auto object: objects_) {
 		object->Draw(painter_);
 	}

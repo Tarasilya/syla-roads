@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 
+
 class Painter {
 private:
 	sf::RenderWindow* window_;

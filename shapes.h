@@ -14,7 +14,7 @@ struct Rectangle {
 	Color color;
 };
 
-class Circle {
+struct Circle {
 	int x;
 	int y;
 	int r;
