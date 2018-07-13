@@ -1,6 +1,7 @@
 #include "city.h"
 #include "../painter.h"
 #include "../shapes.h"
+#include <algorithm>
 
 City::City(int x_coord, int y_coord, int index)
 {
@@ -13,10 +14,6 @@ City::City(int x_coord, int y_coord, int index)
 }
 
 void City::Tick() {
-	throw 1;
-}
-
-bool City::ProcessClick(int x, int y) {
 	throw 1;
 }
 
@@ -33,4 +30,17 @@ int City::x() {
 
 int City::y() {
 	return y_;
+}
+
+void City::DamageWall(int syla_rate){
+	wall_ -= syla_rate;
+}
+
+void City::AcquireSyla(int syla){
+	syla_reserve_ = std::min(syla_reserve_ + syla, syla_capacity_);		
+}
+
+void City::SendCrew(int syla_rate, Road* target_road)
+{
+	target_road->SeSylaInflux(city_inde, syla_rate);
 }

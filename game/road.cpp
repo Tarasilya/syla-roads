@@ -28,4 +28,43 @@ void Road::Draw(Painter* painter)
     painter->Draw(road_image);
 }
 
+int GetCityPositionInVectors(int city_index)
+{
+	int position = -1; 
+	for (int i = 0; i < 2; i++)
+	{
+		if (cities_indices_[i] == city_index)
+		{
+			position = i; 
+		}
+	}
+	return position;
+}
 
+
+void Road::SetSylaInflux(int city_index, int syla_rate)
+{
+	int city_position = GetCityPositionInVectors(city_index);
+	syla_influx_[city_position] = syla_rate;
+}
+
+void Road::TickBuild()
+{
+    for (int i = 0; i < 2; i++)
+    {
+        completeness_[i] += syla_influx_[i] / cost_; 
+    }
+    if (completeness_[0] + completeness_[1] > 1)
+    {
+        ResetTrade();
+    }
+}
+
+void Road::ResetTrade()
+{
+    // By default, road state resets to trade after completion
+    // with zero contingents on both sides
+    state_ = TRADE;
+    syla_influx_[0] = 0;
+    syla_influx_[1] = 0;
+}
