@@ -16,7 +16,7 @@ private:
     std::vector<City*> cities_connected_;
     double speed_; // speed parameter indicating how fast the Crew is moving along the road.
     double cost_;  // speed parameter indicating how costly it is to complete a full road.
-
+	int trade_profit_; // multiplicative factor that determines how much profit cities get from trading on this road
     std::vector<double> completeness_; // for the state when road is building/ upgraded, keeping track of the progress on both sides of it.
     std::vector<double> syla_influx_; // need these variables for one side of the road (for each city), store in a std::vector.
     std::vector<std::vector<Crew>> contingents_;
@@ -29,7 +29,7 @@ public:
     bool ProcessClick(int x_scr, int y_scr);
 	
 	void ResetWar();
-	void ResetPeace();
+	void ResetTrade();
 
     int GetCityPositionInVectors(int city_index);
     void TickBuild();
