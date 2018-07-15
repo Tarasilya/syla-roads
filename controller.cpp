@@ -15,9 +15,14 @@ int main() {
 	            break;
 	        }
 
-	        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-	            window->close();
-	            break;
+	        if (event.type == sf::Event::KeyPressed) {
+	        	if (event.key.code == sf::Keyboard::Escape) {
+		            window->close();
+		            break;
+		        }
+		        else {
+		        	game->ProcessKey(event.key.code);
+		        }
 	        }
 	    }		
 		window->clear();

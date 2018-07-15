@@ -14,4 +14,5 @@ public:
 	Game(Painter* painter);
 	void Run();
 	void Redraw();
+	void ProcessKey(sf::Keyboard::Key key);
 };
