@@ -8,11 +8,16 @@
 class Painter {
 private:
 	sf::RenderWindow* window_;
-	int window_width_;
-	int window_height_;
+	int display_width_;
+	int display_height_;
+
+	int Transform(int coord, int size);
 public:
 	Painter(sf::RenderWindow* window);
-	void Draw(const Rectangle& rect);
-	void Draw(const Circle& circle);
-	void Draw(const Line& line);
+	virtual void Draw(const Rectangle& rect);
+	virtual void Draw(const Circle& circle);
+	virtual void Draw(const Line& line);
+
+	int Width();
+	int Height();
 };

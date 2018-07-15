@@ -1,27 +1,30 @@
 #include "game.h"
 #include "painter.h"
+#include "map.h"
 #include "game/road.h"
 #include "game/city.h"
 #include "game/game_object.h"
 
 Game::Game(Painter* painter) {
+	Game(painter, Map::DefaultMap());
+}
+
+Game::Game(Painter* painter, Map map) {
 	painter_ = painter;
-	InitMap();
+	objects_ = map.GetObjects();
 }
 
-void Game::InitMap() {
-	City* city_one = new City(200, 100, 0);
-	City* city_two = new City(400, 300, 1);
-	objects_.push_back(city_one);
-	objects_.push_back(city_two);
-	std::vector<City*> cities;
-	cities.push_back(city_one);
-	cities.push_back(city_two);
-	objects_.push_back(new Road(cities));
-}
 
-void Game::Redraw() {
+void Game::Draw() {
 	for (auto object: objects_) {
 		object->Draw(painter_);
 	}
+}
+
+void Game::ProcessKey(sf::Keyboard::Key key) {
+
+}
+
+void Game::Pause() {
+
 }

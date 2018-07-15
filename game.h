@@ -2,6 +2,9 @@
 
 #include "painter.h"
 #include "game/game_object.h"
+#include <SFML/Window.hpp>
+
+class Map;
 
 class Game {
 private:
@@ -9,10 +12,11 @@ private:
 	std::vector<GameObject*> objects_;
 
 	void InitMap();
-	
-public: 
+
+public:
 	Game(Painter* painter);
-	void Run();
-	void Redraw();
+	Game(Painter* painter, Map map);
 	void ProcessKey(sf::Keyboard::Key key);
+	void Draw();
+	void Pause();
 };
