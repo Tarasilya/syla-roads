@@ -5,8 +5,9 @@ int main() {
 	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(600, 600), "SYLA", sf::Style::Fullscreen);
 	Painter* painter = new Painter(window);
 	Game* game = new Game(painter);
-
+	t = clock();
 	while (window->isOpen()) {
+
 	    sf::Event event;
 	    while (window->pollEvent(event))
 	    {
@@ -19,7 +20,10 @@ int main() {
 	            window->close();
 	            break;
 	        }
-	    }		
+	    }	
+	    int dt = clock() - t;
+	    int t = clock();	
+	    game->Tick(dt * 1.0 / CLOCKS_PER_SEC);
 		window->clear();
 		game->Redraw();
 		window->display();

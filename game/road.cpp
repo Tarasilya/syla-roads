@@ -17,6 +17,21 @@ bool Road::ProcessClick(int x, int y) {
 	throw 1;
 }
 
+int Road::CityExpense(int city_index)
+{
+    int expense;
+    int position_ind = GetCityPositionInVectors(city_index);
+    int num_crew = contingents_[position_ind].size();
+    if (num_crew > 0)
+    {
+        expense = contingents_[position_ind][0]->GetThickness();
+    }
+    else
+    {
+        expense = 0;
+    }
+}
+
 void Road::Draw(Painter* painter)
 {
     Color road_color = {0, 255, 255};

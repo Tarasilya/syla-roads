@@ -8,13 +8,23 @@ City::City(int x_coord, int y_coord, int index)
     x_ = x_coord;
     y_ = y_coord;
     city_index_ = index;
-    syla_ = 0;
+    syla_ = 1000;
     capacity_ = 100;
     wall_ = 100;
 }
 
-void City::Tick() {
-	throw 1;
+int City::CalculateSylaOutlux()
+{
+    int num_roads = roads_.size();
+    int outflux = 0;
+    for (int i = 0; i < num_roads; i++)
+    {
+        outflux += roads_[i]->CityExpense();
+    }
+}
+
+void City::Tick(double dt) {
+	
 }
 
 void City::Draw(Painter* painter)

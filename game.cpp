@@ -25,3 +25,11 @@ void Game::Redraw() {
 		object->Draw(painter_);
 	}
 }
+
+void Game::ProcessKey(sf::Keyboard::Key key)
+{
+	if (key = sf::Keyboard::Q)
+	{
+		break;
+	}
+}

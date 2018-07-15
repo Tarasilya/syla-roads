@@ -24,8 +24,9 @@ public:
     void DamageWall(int syla_rate);
     void AcquireSyla(int syla);
     int CalculateSylaOutflux();
+    int CityExpense(int city_index);
 
-    void Tick();
+    void Tick(double dt);
     void Draw(Painter* painter);
     //bool ProcessClick(int x_scr, int y_scr);
 
