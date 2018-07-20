@@ -26,7 +26,6 @@ public:
     Road(std::vector<City*> cities);
     void Tick();
     void Draw(Painter* painter);
-    bool ProcessClick(int x_scr, int y_scr);
 
     int GetCityPositionInVectors(int city_index);
     void BuildRoad(int city_index, double syla);

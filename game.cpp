@@ -10,8 +10,8 @@ Game::Game(Painter* painter) {
 }
 
 void Game::InitMap() {
-	City* city_one = new City(200, 100, 0);
-	City* city_two = new City(400, 300, 1);
+	City* city_one = new City(-0.5, -0.5, 0);
+	City* city_two = new City(0.5, 0.5, 1);
 	objects_.push_back(city_one);
 	objects_.push_back(city_two);
 	std::vector<City*> cities;
@@ -24,4 +24,8 @@ void Game::Redraw() {
 	for (auto object: objects_) {
 		object->Draw(painter_);
 	}
+}
+
+void Game::ProcessKey(sf::Keyboard::Key key) {
+
 }

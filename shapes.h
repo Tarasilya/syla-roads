@@ -7,24 +7,24 @@ struct Color {
 };
 
 struct Rectangle {
-	int x1;
-	int y1;
-	int x2;
-	int y2;
+	double x1;
+	double y1;
+	double x2;
+	double y2;
 	Color color;
 };
 
 struct Circle {
-	int x;
-	int y;
-	int r;
+	double x;
+	double y;
+	double r;
 	Color color;
 };
 
 struct Line {
-	int x1;
-	int y1;
-	int x2;
-	int y2;
+	double x1;
+	double y1;
+	double x2;
+	double y2;
 	Color color;
 };

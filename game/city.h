@@ -9,8 +9,8 @@ class Road;
 class City : public Node
 {
 private:
-    int x_;
-    int y_;
+    double x_;
+    double y_;
     int city_index_;
     std::vector<Road*> roads_;
     double syla_;
@@ -18,7 +18,7 @@ private:
     double wall_;
 
 public:
-    City(int x_coord, int y_coord, int index);
+    City(double x_coord, double y_coord, int index);
 
     void SendCrew(double syla_rate, Road* target_road);
     void DamageWall(double syla_rate);
@@ -27,9 +27,8 @@ public:
 
     void Tick();
     void Draw(Painter* painter);
-    bool ProcessClick(int x_scr, int y_scr);
-
-    int x();
-    int y();
+    
+    double x();
+    double y();
 };
 
