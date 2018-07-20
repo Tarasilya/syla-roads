@@ -1,33 +1,41 @@
+#include "controller.h"
 #include "painter.h"
 #include "game.h"
 
-int main() {
-	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1000, 1000), "SYLA");
-	Painter* painter = new Painter(window);
-	Game* game = new Game(painter);
+void Controller::Run() {
+	window_ = new sf::RenderWindow(sf::VideoMode(600, 600), "SYLA");
+	Painter* painter = new Painter(window_);
+	game_ = new Game(painter);
 
-	while (window->isOpen()) {
+	int side = 100;
+
+	while (window_->isOpen()) {
 	    sf::Event event;
-	    while (window->pollEvent(event))
+	    while (window_->pollEvent(event))
 	    {
 	        if (event.type == sf::Event::Closed) {
-	            window->close();
+	            window_->close();
 	            break;
 	        }
 
 	        if (event.type == sf::Event::KeyPressed) {
-	        	if (event.key.code == sf::Keyboard::Escape) {
-		            window->close();
-		            break;
-		        }
-		        else {
-		        	game->ProcessKey(event.key.code);
-		        }
+	        	ProcessKey(event.key.code);
 	        }
-	    }		
-		window->clear();
-		game->Redraw();
-		window->display();
-	}
 
+	    }
+		window_->clear();
+		game_->Draw();
+		window_->display();
+	}
+}
+
+
+void Controller::ProcessKey(sf::Keyboard::Key key) {
+	if (key == sf::Keyboard::Escape) {
+        window_->close();
+        exit(0);
+    }
+    else {
+    	game_->ProcessKey(key);
+    }
 }

@@ -13,6 +13,6 @@ private:
 public: 
 	Game(Painter* painter);
 	void Run();
-	void Redraw();
+	void Draw();
 	void ProcessKey(sf::Keyboard::Key key);
 };

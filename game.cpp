@@ -20,12 +20,11 @@ void Game::InitMap() {
 	objects_.push_back(new Road(cities));
 }
 
-void Game::Redraw() {
+void Game::Draw() {
 	for (auto object: objects_) {
 		object->Draw(painter_);
 	}
 }
 
 void Game::ProcessKey(sf::Keyboard::Key key) {
-
 }
