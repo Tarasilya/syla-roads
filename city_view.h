@@ -6,10 +6,7 @@
 class Painter;
 
 class CityView : public NodeView {
-private:
-	City* city_;
 public:
-	CityView(City* city);
+	CityView(Game* game, City* city);
 	virtual void Draw(Painter* painter) const override;
-	virtual Node* GetNode() const override;
 };

@@ -10,6 +10,7 @@ Game::Game(Painter* painter) {
 	painter_ = painter;
 	InitMap();
 	InitViews();
+	players_.push_back(new Player((NodeView*) nodes_[0]->GetView(this)));
 }
 
 void Game::InitMap() {
@@ -29,13 +30,11 @@ void Game::InitMap() {
 	cities.push_back(city_one);
 	cities.push_back(city_two);
 	objects_.push_back(new Road(cities));
-
-	players_.push_back(new Player(this));
 }
 
 void Game::InitViews() {
 	for (auto object: objects_) {
-		views_.push_back(object->GetView());
+		views_.push_back(object->GetView(this));
 	}
 }
 

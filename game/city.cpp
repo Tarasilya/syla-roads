@@ -18,9 +18,9 @@ void City::Tick() {
 	throw 1;
 }
 
-ObjectView* City::GetView() {
+ObjectView* City::GetView(Game* game) {
 	if (view_ == 0) {
-		view_ = new CityView(this);
+		view_ = new CityView(game, this);
 	}
 	return view_;
 }

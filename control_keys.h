@@ -5,4 +5,5 @@ enum Control {
 	MOVE_RIGHT,
 	MOVE_UP,
 	MOVE_DOWN,
+	SELECT,
 };

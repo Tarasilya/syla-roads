@@ -1,26 +1,18 @@
 #pragma once
 
-#include "object_view.h"
-#include "node_view.h"
-#include "game.h"
-
 #include <SFML/Window.hpp>
 
-class Node;
+class NodeView;
 
 class Player {
 private:
-	Game* game_;
 	std::vector<sf::Keyboard::Key> controls_;
-	NodeView* focusedNode_;
+	NodeView* focusedView_;
+	NodeView* baseView_;
 
-	void MoveHorizontally(int direction);
-	void MoveVertically(int direction);
-
-	bool IsInCloseRange(int base, int y);
-	bool IsInDirectionFromTo(Node* from, Node* to, int direction);
+	void FocusOn(NodeView* view);
 public:
-	Player(Game* game);
+	Player(NodeView* baseView);
 
 	bool ProcessKey(sf::Keyboard::Key key);
 };

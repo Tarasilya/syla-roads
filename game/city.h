@@ -26,6 +26,6 @@ public:
 
     void Tick();
     
-    ObjectView* GetView();
+    ObjectView* GetView(Game* game);
 };
 

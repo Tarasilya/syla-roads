@@ -1,5 +1,7 @@
 #pragma once
 
+#include "game/game_object.h"
+
 class Painter;
 
 class ObjectView {

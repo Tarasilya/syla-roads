@@ -33,7 +33,7 @@ public:
     void MoveContingents();
 
     const std::vector<City*>& GetCities();
-    ObjectView* GetView();
+    ObjectView* GetView(Game* game);
 };
 
 

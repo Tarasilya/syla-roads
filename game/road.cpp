@@ -15,7 +15,7 @@ void Road::Tick() {
 	throw 1;
 }
 
-ObjectView* Road::GetView() {
+ObjectView* Road::GetView(Game* game) {
 	if (view_ == 0) {
 		view_ = new RoadView(this);
 	}
