@@ -6,6 +6,8 @@
 #include "../painter.h"
 #include "game_object.h"
 #include <vector>
+#include <deque>
+
 
 class City;
 
@@ -16,28 +18,33 @@ private:
     std::vector<City*> cities_connected_;
     double speed_; // speed parameter indicating how fast the Crew is moving along the road.
     double cost_;  // speed parameter indicating how costly it is to complete a full road.
-	int trade_profit_; // multiplicative factor that determines how much profit cities get from trading on this road
+	double trade_profit_; // multiplicative factor that determines how much profit cities get from trading on this road
     std::vector<double> completeness_; // for the state when road is building/ upgraded, keeping track of the progress on both sides of it.
     std::vector<double> syla_influx_; // need these variables for one side of the road (for each city), store in a std::vector.
-    std::vector<std::vector<Crew*>> contingents_;
+    std::vector<std::deque<Crew*>> contingents_;
     RoadState state_;
 
 public:
+
+    operator std::string() const;
     Road(std::vector<City*> cities);
-    void Tick();
+    void Tick(double tick_time);
     void Draw(Painter* painter);
     bool ProcessClick(int x_scr, int y_scr);
-	
+
+
 	void ResetWar();
-	void ResetTrade();
-    int CityExpense(int city_index);
+	void ResetToTrade();
+    double CityExpense(int city_index);
 
     int GetCityPositionInVectors(int city_index);
-    void TickBuild();
-	void TickMovePeace();
-	void TickMoveWar();
+    void InitiateWar(int city_index);
+    void TickBuild(double tick_time);
+	void TickTrade(double tick_time);
+	void TickWar(double tick_time);
     void MoveContingents();
-    void SetSylaInflux(int city_index, int syla_rate);
+    void SetSylaInflux(int city_index, double syla_rate);
+    void AddCrew(int position, double thickness);
 };
 
 

@@ -1,11 +1,15 @@
 #include "painter.h"
 #include "game.h"
+#include <iostream>
 
 int main() {
-	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(600, 600), "SYLA", sf::Style::Fullscreen);
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(300, 300), "SYLA");
 	Painter* painter = new Painter(window);
 	Game* game = new Game(painter);
-	t = clock();
+
+    std::cout << CLOCKS_PER_SEC << "\n";
+	clock_t t = clock();
+
 	while (window->isOpen()) {
 
 	    sf::Event event;
@@ -16,13 +20,20 @@ int main() {
 	            break;
 	        }
 
-	        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-	            window->close();
-	            break;
+	        if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::Escape)
+                {
+                    window->close();
+                    break;
+                }
+                else
+                {
+                    game->ProcessKey(event.key.code);
+                }
 	        }
-	    }	
-	    int dt = clock() - t;
-	    int t = clock();	
+	    }
+	    clock_t dt = clock() - t;
+	    t = clock();
 	    game->Tick(dt * 1.0 / CLOCKS_PER_SEC);
 		window->clear();
 		game->Redraw();

@@ -7,18 +7,20 @@
 class Crew
 {
 private:
-    int thickness_; // kon
+    double thickness_; // kon
     double start_percentage_;
     double end_percentage_;
     int position; // kon
     Fraction entity_;
 public:
-    bool MoveForward(double tick_time, double start_speed, double end_speed, double boundary_coordinate);
+    Crew(double thickness);
+    bool MoveForward(double tick_time, double start_speed, double end_speed, double boundary_coordinate, int crew_index);
     //output indicates if the Crew is still present on the board
-    double OffensiveSpeed(Crew enemy_crew, double road_speed);
+    double OffensiveSpeed(Crew* enemy_crew, double road_speed);
     //output indicates the speed of movement as a result of
     //engagement
-    int GetThickness();
+    double GetThickness();
+    double GetStartPercentage();
 	double GetEndPercentage();
 
 };

@@ -1,0 +1,78 @@
+# depslib dependency file v1.0
+1532193184 source:/home/taras/Documents/project/syla-roads/game.cpp
+	<iostream>
+	<cmath>
+	"game.h"
+	"painter.h"
+	"game/road.h"
+	"game/city.h"
+	"game/game_object.h"
+
+1531946866 /home/taras/Documents/project/syla-roads/game.h
+	"painter.h"
+	"game/game_object.h"
+
+1531847511 /home/taras/Documents/project/syla-roads/painter.h
+	"shapes.h"
+	<SFML/Graphics.hpp>
+
+1531847511 /home/taras/Documents/project/syla-roads/shapes.h
+
+1532025357 /home/taras/Documents/project/syla-roads/game/game_object.h
+	"../painter.h"
+
+1532114841 /home/taras/Documents/project/syla-roads/game/road.h
+	"crew.h"
+	"enum.h"
+	"../painter.h"
+	"game_object.h"
+	<vector>
+	<deque>
+
+1532190320 /home/taras/Documents/project/syla-roads/game/crew.h
+	<algorithm>
+	"enum.h"
+
+1531421485 /home/taras/Documents/project/syla-roads/game/enum.h
+
+1532111145 /home/taras/Documents/project/syla-roads/game/city.h
+	<vector>
+	"node.h"
+	"../painter.h"
+
+1531511461 /home/taras/Documents/project/syla-roads/game/node.h
+	"enum.h"
+	"game_object.h"
+
+1532191620 source:/home/taras/Documents/project/syla-roads/game/city.cpp
+	"road.h"
+	"city.h"
+	"../painter.h"
+	"../shapes.h"
+	<algorithm>
+	<sstream>
+	<iostream>
+
+1532191711 source:/home/taras/Documents/project/syla-roads/game/crew.cpp
+	"crew.h"
+
+1532193025 source:/home/taras/Documents/project/syla-roads/game/road.cpp
+	"road.h"
+	"enum.h"
+	"city.h"
+	"crew.h"
+	"../painter.h"
+	"../shapes.h"
+	<cmath>
+	<sstream>
+	<iostream>
+
+1531847511 source:/home/taras/Documents/project/syla-roads/painter.cpp
+	"painter.h"
+	<SFML/Graphics.hpp>
+
+1532027691 source:/home/taras/Documents/project/syla-roads/controller.cpp
+	"painter.h"
+	"game.h"
+	<iostream>
+

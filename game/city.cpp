@@ -1,30 +1,34 @@
+#include "road.h"
 #include "city.h"
 #include "../painter.h"
 #include "../shapes.h"
 #include <algorithm>
+#include <sstream>
+#include <iostream>
+
 
 City::City(int x_coord, int y_coord, int index)
 {
     x_ = x_coord;
     y_ = y_coord;
     city_index_ = index;
-    syla_ = 1000;
-    capacity_ = 100;
+    syla_reserve_ = 1000;
+    syla_capacity_ = 1000;
     wall_ = 100;
 }
 
-int City::CalculateSylaOutlux()
+City::operator std::string() const
 {
-    int num_roads = roads_.size();
-    int outflux = 0;
-    for (int i = 0; i < num_roads; i++)
-    {
-        outflux += roads_[i]->CityExpense();
-    }
+    std::stringstream ss;
+    ss << "City index: " << city_index_ << "\nSyla reserve: " << syla_reserve_ << "\nWall :" <<  wall_ << "\n";
+    return ss.str();
 }
 
-void City::Tick(double dt) {
-	
+
+
+
+void City::Tick(double tick_time) {
+
 }
 
 void City::Draw(Painter* painter)
@@ -42,15 +46,29 @@ int City::y() {
 	return y_;
 }
 
-void City::DamageWall(int syla_rate){
+void City::DamageWall(double syla_rate){
 	wall_ -= syla_rate;
 }
 
-void City::AcquireSyla(int syla){
-	syla_reserve_ = std::min(syla_reserve_ + syla, syla_capacity_);		
+void City::AcquireSyla(double syla){
+	syla_reserve_ = std::min(syla_reserve_ + syla, syla_capacity_);
 }
 
-void City::SendCrew(int syla_rate, Road* target_road)
+void City::SendCrew(double syla_rate, Road* target_road)
 {
-	target_road->SeSylaInflux(city_inde, syla_rate);
+    std::cout << "SendCrew: " << syla_rate << "\n";
+	target_road->SetSylaInflux(city_index_, syla_rate);
+}
+
+bool City::LoseSyla(double syla)
+{
+    if (syla <= syla_reserve_)
+    {
+        syla_reserve_ -= syla;
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }

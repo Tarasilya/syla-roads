@@ -7,7 +7,8 @@ class Game {
 private:
 	Painter* painter_;
 	std::vector<GameObject*> objects_;
-
+	double total_time_;
+	int seconds_;
 	void InitMap();
 	
 public: 
