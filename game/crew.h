@@ -2,6 +2,9 @@
 #define __CREW_H__
 
 #include "enum.h"
+#include "../player.h"
+
+
 class Crew
 {
 private:
@@ -9,7 +12,7 @@ private:
     double start_percentage_;
     double end_percentage_;
     int position; // kon
-    Fraction entity_;
+    Player* entity_;
 public:
     bool MoveForward(double tick_time, double speed);
     //output indicates if the Crew is still present on the board

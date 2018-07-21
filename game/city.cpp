@@ -1,9 +1,11 @@
 #include "city.h"
 #include "../painter.h"
 #include "../shapes.h"
+#include "../city_view.h"
 
 City::City(double x_coord, double y_coord, int index)
 {
+	view_ = 0;
     x_ = x_coord;
     y_ = y_coord;
     city_index_ = index;
@@ -16,17 +18,9 @@ void City::Tick() {
 	throw 1;
 }
 
-void City::Draw(Painter* painter)
-{
-    Color city_color = {255, 0, 0};
-    Circle city_image = {x_, y_, 0.1, city_color};
-    painter->Draw(city_image);
-}
-
-double City::x() {
-	return x_;
-}
-
-double City::y() {
-	return y_;
+ObjectView* City::GetView() {
+	if (view_ == 0) {
+		view_ = new CityView(this);
+	}
+	return view_;
 }

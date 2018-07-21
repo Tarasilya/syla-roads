@@ -7,8 +7,6 @@ void Controller::Run() {
 	Painter* painter = new Painter(window_);
 	game_ = new Game(painter);
 
-	int side = 100;
-
 	while (window_->isOpen()) {
 	    sf::Event event;
 	    while (window_->pollEvent(event))
@@ -28,7 +26,6 @@ void Controller::Run() {
 		window_->display();
 	}
 }
-
 
 void Controller::ProcessKey(sf::Keyboard::Key key) {
 	if (key == sf::Keyboard::Escape) {

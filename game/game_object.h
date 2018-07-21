@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../painter.h"
+class ObjectView;
 
 class GameObject
 {
 public:
     virtual void Tick() = 0;
-    virtual void Draw(Painter* painter) = 0;
+	virtual ObjectView* GetView() = 0;    
 };

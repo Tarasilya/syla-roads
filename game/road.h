@@ -3,8 +3,9 @@
 
 #include "crew.h"
 #include "enum.h"
-#include "../painter.h"
 #include "game_object.h"
+#include "../object_view.h"
+
 #include <vector>
 
 class City;
@@ -12,6 +13,7 @@ class City;
 class Road : public GameObject
 {
 private:
+    ObjectView* view_;
     std::vector<int> cities_indices_;
     std::vector<City*> cities_connected_;
     double speed_; // speed parameter indicating how fast the Crew is moving along the road.
@@ -25,11 +27,13 @@ private:
 public:
     Road(std::vector<City*> cities);
     void Tick();
-    void Draw(Painter* painter);
 
     int GetCityPositionInVectors(int city_index);
     void BuildRoad(int city_index, double syla);
     void MoveContingents();
+
+    const std::vector<City*>& GetCities();
+    ObjectView* GetView();
 };
 
 

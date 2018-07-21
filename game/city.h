@@ -2,15 +2,14 @@
 
 #include <vector>
 #include "node.h"
-#include "../painter.h"
+#include "../object_view.h"
 
 class Road;
 
 class City : public Node
 {
 private:
-    double x_;
-    double y_;
+    ObjectView* view_;
     int city_index_;
     std::vector<Road*> roads_;
     double syla_;
@@ -26,9 +25,7 @@ public:
     double CalculateSylaOutflux();
 
     void Tick();
-    void Draw(Painter* painter);
     
-    double x();
-    double y();
+    ObjectView* GetView();
 };
 

@@ -30,11 +30,9 @@ void Painter::Draw(const Rectangle& rect) {
 }
 
 void Painter::Draw(const Circle& circle) {
-	std::cerr << "drawin circle " << circle.x << " " << circle.y << " " << circle.r << std::endl;
 	int x = Transform(circle.x, display_width_);
 	int y = Transform(circle.y, display_height_);
 	int r = TransformSize(circle.r, std::min(display_width_, display_height_));
-	std::cerr << "after Transform " << x << " " << y << " " << r << std::endl;
 	sf::CircleShape draw_circle (r);
 
 	draw_circle.setPosition(x - r, y - r);
