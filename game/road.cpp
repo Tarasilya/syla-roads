@@ -133,6 +133,8 @@ void Road::ResetToTrade()
     state_ = TRADE;
     syla_influx_[0] = 0;
     syla_influx_[1] = 0;
+
+
 }
 
 void Road::InitiateWar(int city_index)
@@ -141,6 +143,7 @@ void Road::InitiateWar(int city_index)
     syla_influx_[0] = 0;
     syla_influx_[1] = 0;
     contingents_.assign(2, {});
+    std::cerr << contingents_[0].size();
 }
 
 void Road::TickTrade(double tick_time)
@@ -178,6 +181,7 @@ void Road::TickWar(double tick_time)
 
 
 	std::vector<Crew*> front_crew;
+
 	for (int i = 0; i < 2; i++)
 	{
         if (contingents_[i].size())
@@ -187,9 +191,9 @@ void Road::TickWar(double tick_time)
         else
         {
             front_crew.push_back(new Crew(syla_influx_[i]));
-            contingents_[i].push_front(new Crew(syla_influx_[i]));
         }
 	}
+
 
 	for (int i = 0; i < 2; i++)
 	{
@@ -213,9 +217,9 @@ void Road::TickWar(double tick_time)
             {
                 contingents_[i].pop_back();
             }
-            if (contingents_[i].back()->GetEndPercentage() >= 1)
+            if (front_crew[i]->GetEndPercentage() >= 1)
             {
-                cities_connected_[!i]->DamageWall(tick_time*contingents_[i].back()->GetThickness());
+                cities_connected_[!i]->DamageWall(tick_time*(front_crew[i]->GetThickness() - front_crew[1-i]->GetThickness() ));
             }
         }
 	}

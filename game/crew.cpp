@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "crew.h"
 
 Crew::Crew(double thickness)
@@ -19,7 +20,7 @@ double Crew::GetEndPercentage()
 
 double Crew::GetThickness()
 {
-	return thickness_;
+    return thickness_;
 }
 
 bool Crew::MoveForward(double tick_time, double start_speed, double end_speed, double boundary_coordinate, int crew_index)
@@ -27,7 +28,7 @@ bool Crew::MoveForward(double tick_time, double start_speed, double end_speed, d
 	bool still_present = 1;
 	if (start_percentage_ != 0 || crew_index)
 	{
-		double new_start_percentage = start_percentage_ + start_speed * tick_time;
+		double new_start_percentage = std::max(start_percentage_ + start_speed * tick_time, 0.);
 
 		if (new_start_percentage < boundary_coordinate)
 		{
@@ -39,10 +40,10 @@ bool Crew::MoveForward(double tick_time, double start_speed, double end_speed, d
 		}
 	}
 
-	if (still_present)
-	{
-		end_percentage_ = std::min(boundary_coordinate, end_percentage_ + tick_time * end_speed);
-	}
+    if (still_present)
+    {
+        end_percentage_ = std::min(boundary_coordinate, end_percentage_ + tick_time * end_speed);
+    }
 
 	if (end_percentage_ < start_percentage_)
 	{
@@ -54,6 +55,6 @@ bool Crew::MoveForward(double tick_time, double start_speed, double end_speed, d
 
 double Crew::OffensiveSpeed(Crew* enemy_crew, double road_speed)
 {
-	double resulting_speed = road_speed*(thickness_ - enemy_crew->GetThickness()) / (thickness_ + enemy_crew->GetThickness());
+    double resulting_speed = road_speed*(thickness_ - enemy_crew->GetThickness()) / (thickness_ + enemy_crew->GetThickness() + 1);
 	return resulting_speed;
 }
