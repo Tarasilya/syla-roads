@@ -18,5 +18,7 @@ public:
 	NodeView* NextVertically(int direction);
 	NodeView* NextHorizontally(int direction);
 
+	virtual void RoadSelect();
+	virtual bool IsRoadSelected();
 	void SetFocused(bool focused);
 };

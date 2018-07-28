@@ -8,7 +8,7 @@ City::City(double x_coord, double y_coord, int index)
 	view_ = 0;
     x_ = x_coord;
     y_ = y_coord;
-    city_index_ = index;
+    index_ = index;
     syla_ = 0;
     capacity_ = 100;
     wall_ = 100;
@@ -23,4 +23,12 @@ ObjectView* City::GetView(Game* game) {
 		view_ = new CityView(game, this);
 	}
 	return view_;
+}
+
+int City::GetIndex() {
+	return index_;
+}
+
+const std::vector<Road*>& City::GetRoads() {
+	return roads_;
 }

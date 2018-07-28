@@ -32,9 +32,17 @@ bool NodeView::IsInDirectionFromTo(Node* from, Node* to, int direction) {
 }
 
 Node* NodeView::GetNode() const {
-	return (Node*) node_;
+	return node_;
 }
 
 void NodeView::SetFocused(bool focused) {
 	focused_ = focused;
+}
+
+void NodeView::RoadSelect() {
+	// do nothing for general node
+}
+
+bool NodeView::IsRoadSelected() {
+	return false;
 }

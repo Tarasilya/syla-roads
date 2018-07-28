@@ -6,4 +6,5 @@ enum Control {
 	MOVE_UP,
 	MOVE_DOWN,
 	SELECT,
+	ROAD_SELECT,
 };

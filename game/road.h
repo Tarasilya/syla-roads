@@ -13,8 +13,6 @@ class City;
 class Road : public GameObject
 {
 private:
-    ObjectView* view_;
-    std::vector<int> cities_indices_;
     std::vector<City*> cities_connected_;
     double speed_; // speed parameter indicating how fast the Crew is moving along the road.
     double cost_;  // speed parameter indicating how costly it is to complete a full road.

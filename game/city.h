@@ -9,8 +9,7 @@ class Road;
 class City : public Node
 {
 private:
-    ObjectView* view_;
-    int city_index_;
+    int index_;
     std::vector<Road*> roads_;
     double syla_;
     double capacity_;
@@ -26,6 +25,8 @@ public:
 
     void Tick();
     
+    int GetIndex();
     ObjectView* GetView(Game* game);
+    const std::vector<Road*>& GetRoads();
 };
 

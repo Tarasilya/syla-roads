@@ -12,6 +12,7 @@ Player::Player(NodeView* baseView) : baseView_(baseView), focusedView_(0) {
 	controls_[MOVE_UP] = sf::Keyboard::Up;
 	controls_[MOVE_DOWN] = sf::Keyboard::Down;
 	controls_[SELECT] = sf::Keyboard::S;
+	controls_[ROAD_SELECT] = sf::Keyboard::R;
 }
 
 bool Player::ProcessKey(sf::Keyboard::Key key) {
@@ -45,11 +46,21 @@ bool Player::ProcessKey(sf::Keyboard::Key key) {
 			FocusOn(baseView_);
 		}
 		else {
-			focusedView_->SetFocused(false);
-			baseView_ = focusedView_;
-			focusedView_ = 0;
+			if (focusedView_->IsRoadSelected()) {
+				focusedView_->RoadSelect();
+			}
+			else {
+				focusedView_->SetFocused(false);
+				baseView_ = focusedView_;
+				focusedView_ = 0;
+			}
 		}
 		return true;
+	}
+	if (key == controls_[ROAD_SELECT]) {
+		if (focusedView_ != 0) {
+			focusedView_->RoadSelect();
+		}
 	}
 	return false;
 }
