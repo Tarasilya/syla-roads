@@ -4,7 +4,9 @@
 
 class GameObject
 {
+
 public:
-    virtual void Tick() = 0;
+    virtual operator std::string() const = 0;
+    virtual void Tick(double tick_time) = 0;
     virtual void Draw(Painter* painter) = 0;
 };
