@@ -2,16 +2,14 @@
 
 #include <vector>
 #include "node.h"
-#include "../painter.h"
+#include "object_view.h"
 
 class Road;
 
 class City : public Node
 {
 private:
-    double x_;
-    double y_;
-    int city_index_;
+    int index_;
     std::vector<Road*> roads_;
     double syla_reserve_;
     double syla_capacity_;
@@ -26,10 +24,12 @@ public:
     bool LoseSyla(double syla);
 
     void Tick(double tick_time);
-    void Draw(Painter* painter);
 
-    double x();
-    double y();
+    void AddRoad(Road* road);
+
     operator std::string() const;
+    int GetIndex();
+    ObjectView* GetView(Game* game);
+    const std::vector<Road*>& GetRoads();
 };
 

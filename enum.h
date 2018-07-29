@@ -1,13 +1,6 @@
 #ifndef __ENUM_H__
 #define __ENUM_H__
 
-enum Fraction
-{
-    RED,
-    BLUE,
-    NEUTRAL
-};
-
 enum RoadState
 {
     CONSTRUCTION,

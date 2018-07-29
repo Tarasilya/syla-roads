@@ -1,26 +1,29 @@
 #include "road.h"
 #include "city.h"
-#include "../painter.h"
-#include "../shapes.h"
+#include "painter.h"
+#include "shapes.h"
+#include "city_view.h"
+
 #include <algorithm>
 #include <sstream>
 #include <iostream>
 
-
-City::City(double x_coord, double y_coord, int index)
+City::City(double x_coord, double y_coord, int index) :
+    index_(index), syla_reserve_(1000), syla_capacity_(1000), wall_(100)
 {
     x_ = x_coord;
     y_ = y_coord;
-    city_index_ = index;
-    syla_reserve_ = 1000;
-    syla_capacity_ = 1000;
-    wall_ = 100;
+    view_ = 0;
+}
+
+void City::AddRoad(Road* road) {
+    roads_.push_back(road);     
 }
 
 City::operator std::string() const
 {
     std::stringstream ss;
-    ss << "City index: " << city_index_ << "\nSyla reserve: " << syla_reserve_ << "\nWall :" <<  wall_ << "\n";
+    ss << "City index: " << index_ << "\nSyla reserve: " << syla_reserve_ << "\nWall :" <<  wall_ << "\n";
     return ss.str();
 }
 
@@ -30,19 +33,15 @@ void City::Tick(double tick_time) {
 
 }
 
-void City::Draw(Painter* painter)
-{
-    Color city_color = {255, 0, 0};
-    Circle city_image = {x_, y_, 0.1, city_color};
-    painter->Draw(city_image);
+ObjectView* City::GetView(Game* game) {
+	if (view_ == 0) {
+		view_ = new CityView(game, this);
+	}
+	return view_;
 }
 
-double City::x() {
-	return x_;
-}
-
-double City::y() {
-	return y_;
+int City::GetIndex() {
+	return index_;
 }
 
 void City::DamageWall(double syla_rate){
@@ -56,7 +55,7 @@ void City::AcquireSyla(double syla){
 void City::SendCrew(double syla_rate, Road* target_road)
 {
     std::cout << "SendCrew: " << syla_rate << "\n";
-	target_road->SetSylaInflux(city_index_, syla_rate);
+	target_road->SetSylaInflux(index_, syla_rate);
 }
 
 bool City::LoseSyla(double syla)
@@ -70,4 +69,8 @@ bool City::LoseSyla(double syla)
     {
         return 0;
     }
+}
+
+const std::vector<Road*>& City::GetRoads() {
+	return roads_;
 }

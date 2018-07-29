@@ -1,44 +1,42 @@
+#include "controller.h"
 #include "painter.h"
 #include "game.h"
 #include <iostream>
 
-int main() {
+void Controller::Run() {
+	window_ = new sf::RenderWindow(sf::VideoMode(1000, 1000), "SYLA");
+	Painter* painter = new Painter(window_);
+	game_ = new Game(painter);
 
-	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(300, 300), "SYLA");
-	Painter* painter = new Painter(window);
-	Game* game = new Game(painter);
-
-    std::cout << CLOCKS_PER_SEC << "\n";
-	clock_t t = clock();
-
-	while (window->isOpen()) {
-
+	double t = clock();
+	while (window_->isOpen()) {
 	    sf::Event event;
-	    while (window->pollEvent(event))
+	    while (window_->pollEvent(event))
 	    {
 	        if (event.type == sf::Event::Closed) {
-	            window->close();
+	            window_->close();
 	            break;
 	        }
 
 	        if (event.type == sf::Event::KeyPressed) {
-                if (event.key.code == sf::Keyboard::Escape)
-                {
-                    window->close();
-                    break;
-                }
-                else
-                {
-                    game->ProcessKey(event.key.code);
-                }
+                ProcessKey(event.key.code);
 	        }
 	    }
 	    clock_t dt = clock() - t;
 	    t = clock();
-	    game->Tick(dt * 1.0 / CLOCKS_PER_SEC);
-		window->clear();
-		game->Redraw();
-		window->display();
+	    game_->Tick(dt * 1.0 / CLOCKS_PER_SEC);
+		window_->clear();
+		game_->Draw();
+		window_->display();
 	}
+}
 
+void Controller::ProcessKey(sf::Keyboard::Key key) {
+	if (key == sf::Keyboard::Escape) {
+        window_->close();
+        exit(0);
+    }
+    else {
+    	game_->ProcessKey(key);
+    }
 }

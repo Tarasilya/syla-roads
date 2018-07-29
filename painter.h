@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 
+const Color ROAD_COLOR = {200, 200, 200};
+const Color SELECTED_ROAD_COLOR = {0, 255, 0};
 
 class Painter {
 private:

@@ -2,19 +2,20 @@
 #include "enum.h"
 #include "city.h"
 #include "crew.h"
-#include "../painter.h"
-#include "../shapes.h"
+#include "painter.h"
+#include "shapes.h"
+#include "road_view.h"
+
 #include <cmath>
 #include <sstream>
 #include <iostream>
-
-typedef std::string String;
 
 
 Road::Road(std::vector<City*> cities)
 {
     contingents_.assign(2, {});
-    cities_indices_ = {0, 1};
+    cities_indices_ = {cities[0]->GetIndex(), cities[1]->GetIndex()};
+	view_ = 0;
     cities_connected_ = cities;
     state_ = CONSTRUCTION;
     syla_influx_.assign(2, 0);
@@ -48,7 +49,6 @@ void Road::Tick(double tick_time) {
 
 }
 
-
 double Road::CityExpense(int city_index)
 {
     double expense;
@@ -63,18 +63,6 @@ double Road::CityExpense(int city_index)
         expense = 0;
     }
     return expense;
-}
-
-
-void Road::Draw(Painter* painter)
-{
-    Color road_color = {0, 255, 255};
-    double x1 = cities_connected_[0]->x();
-    double y1 = cities_connected_[0]->y();
-    double x2 = cities_connected_[1]->x();
-    double y2 = cities_connected_[1]->y();
-    Line road_image = {x1, y1, x2, y2, road_color};
-    painter->Draw(road_image);
 }
 
 int Road::GetCityPositionInVectors(int city_index)
@@ -221,4 +209,15 @@ void Road::TickWar(double tick_time)
             }
         }
 	}
+}
+
+ObjectView* Road::GetView(Game* game) {
+	if (view_ == 0) {
+		view_ = new RoadView(this);
+	}
+	return view_;
+}
+
+const std::vector<City*>& Road::GetCities() {
+	return cities_connected_;
 }

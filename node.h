@@ -3,14 +3,20 @@
 
 #include "enum.h"
 #include "game_object.h"
+#include "player.h"
 
 class Node : public GameObject
 {
-private:
-    Fraction fraction_;
+protected:
+    Player* owner_;
+    double x_;
+    double y_;
 
 public:
-    Fraction GetFraction();
+    Player* GetOwner();
+
+    double x();
+    double y();
 };
 
 

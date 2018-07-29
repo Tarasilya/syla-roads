@@ -3,8 +3,9 @@
 
 #include "crew.h"
 #include "enum.h"
-#include "../painter.h"
 #include "game_object.h"
+#include "object_view.h"
+
 #include <vector>
 #include <deque>
 
@@ -14,8 +15,8 @@ class City;
 class Road : public GameObject
 {
 private:
-    std::vector<int> cities_indices_;
     std::vector<City*> cities_connected_;
+    std::vector<int> cities_indices_;
     double speed_; // speed parameter indicating how fast the Crew is moving along the road.
     double cost_;  // speed parameter indicating how costly it is to complete a full road.
 	double trade_profit_; // multiplicative factor that determines how much profit cities get from trading on this road
@@ -29,8 +30,6 @@ public:
     operator std::string() const;
     Road(std::vector<City*> cities);
     void Tick(double tick_time);
-    void Draw(Painter* painter);
-
 
 	void ResetWar();
 	void ResetToTrade();
@@ -44,6 +43,9 @@ public:
     void MoveContingents();
     void SetSylaInflux(int city_index, double syla_rate);
     void AddCrew(int position, double thickness);
+
+    const std::vector<City*>& GetCities();
+    ObjectView* GetView(Game* game);
 };
 
 

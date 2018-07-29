@@ -1,5 +1,6 @@
-#include <algorithm>
 #include "crew.h"
+
+#include <algorithm>
 
 Crew::Crew(double thickness)
 {

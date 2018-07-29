@@ -1,7 +1,11 @@
 #pragma once
 
 #include "painter.h"
-#include "game/game_object.h"
+
+class GameObject;
+class ObjectView;
+class Node;
+class Player;
 
 class Game {
 private:
@@ -9,12 +13,19 @@ private:
 	std::vector<GameObject*> objects_;
 	double total_time_;
 	int seconds_;
-	void InitMap();
 
-public:
+	std::vector<Node*> nodes_;
+	std::vector<ObjectView*> views_;
+	std::vector<Player*> players_;
+
+	void InitMap();
+	void InitViews();
+	
+public: 
 	Game(Painter* painter);
 	void Run();
-	void Redraw();
+	void Draw();
 	void ProcessKey(sf::Keyboard::Key key);
 	void Tick(double dt);
+	const std::vector<Node*>& GetNodes() const;
 };

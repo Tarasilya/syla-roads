@@ -1,12 +1,17 @@
 #pragma once
 
-#include "../painter.h"
+#include <string>
+
+class ObjectView;
+class Game;
 
 class GameObject
 {
+protected:
+    ObjectView* view_;
 
 public:
     virtual operator std::string() const = 0;
     virtual void Tick(double tick_time) = 0;
-    virtual void Draw(Painter* painter) = 0;
+   	virtual ObjectView* GetView(Game* game) = 0;    
 };
