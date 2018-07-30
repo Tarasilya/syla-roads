@@ -2,33 +2,70 @@
 #include "node.h"
 #include "game.h"
 
+#include <iostream>
+#include <functional>
+#include <cmath>
+
+const double CLOSE_RANGE = 0.001;
+
 NodeView::NodeView(Game* game, Node* node) : node_(node), game_(game), focused_(false) {}
 
 NodeView* NodeView::NextHorizontally(int direction) {
+	return Next(
+		[direction, this](Node* a, Node* b) {
+			return IsInDirectionFromTo(a->x(), b->x(), direction);
+		},
+		[this](Node* a, Node* b) {
+			return IsInCloseRange(a->y(), b->y());
+		}
+	);
+}
+
+NodeView* NodeView::NextVertically(int direction) {
+	return Next(
+		[direction, this](Node* a, Node* b) {
+			return IsInDirectionFromTo(a->y(), b->y(), direction);
+		},
+		[this](Node* a, Node* b) {
+			return IsInCloseRange(a->x(), b->x());
+		}
+	);
+}
+
+NodeView* NodeView::Next(const std::function<bool(Node*, Node*)>& less, const std::function<bool(Node*, Node*)>& same) {
 	const std::vector<Node*>& nodes = game_->GetNodes();
 
-	NodeView* target = 0;
+	NodeView *same_line_target = 0, *any_line_target = 0;
 	for (auto node: nodes) {
-		if (IsInCloseRange(GetNode()->y(), node->y()) && IsInDirectionFromTo(GetNode(), node, direction)) {
-			if (target == 0 || IsInDirectionFromTo(node, target->GetNode(), direction)) {
-				target = (NodeView*) node->GetView(game_);
+		if (less(node_, node)) {
+			UpdateIfBetter(any_line_target, node, less);
+			if (same(node_, node)) {
+				UpdateIfBetter(same_line_target, node, less);
 			}
 		}
 	}
 
-	return target == 0 ? this : target;
+	if (same_line_target == 0) {
+		return any_line_target == 0 ? this : any_line_target;
+	}
+	else {
+		return same_line_target == 0 ? this : same_line_target;
+	}
+
 }
 
-NodeView* NodeView::NextVertically(int direction) {
-	throw 1;
+void NodeView::UpdateIfBetter(NodeView*& current, Node* candidate, const std::function<bool(Node*, Node*)>& less) {
+	if (current == 0 || less(candidate, current->GetNode())) {
+		current = (NodeView*) candidate->GetView(game_);
+	}
 }
 
-bool NodeView::IsInCloseRange(int base, int y) {
-	return true;
+bool NodeView::IsInCloseRange(double base, double y) {
+	return std::abs(base - y) < CLOSE_RANGE;
 }
 
-bool NodeView::IsInDirectionFromTo(Node* from, Node* to, int direction) {
-	return (to->x() - from->x()) * direction > 0;
+bool NodeView::IsInDirectionFromTo(double from, double to, int direction) {
+	return (to - from) * direction > 0;
 }
 
 Node* NodeView::GetNode() const {

@@ -27,4 +27,5 @@ struct Line {
 	double x2;
 	double y2;
 	Color color;
+	double thickness;
 };

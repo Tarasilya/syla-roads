@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <utility>
+
 const Color ROAD_COLOR = {200, 200, 200};
 const Color SELECTED_ROAD_COLOR = {0, 255, 0};
 
@@ -15,6 +17,7 @@ private:
 
 	int Transform(double corrd, int display_size);
 	int TransformSize(double size, int display);
+	std::pair<double, double> ToLength(std::pair<double, double> vector, double length);
 public:
 	Painter(sf::RenderWindow* window);
 	void Draw(const Rectangle& rect);

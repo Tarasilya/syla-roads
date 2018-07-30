@@ -14,4 +14,5 @@ public:
 	virtual void Draw(Painter* painter) const override;
 	virtual void RoadSelect() override;
 	virtual bool IsRoadSelected() override;
+	virtual NodeView* NextHorizontally(int direction) override;
 };

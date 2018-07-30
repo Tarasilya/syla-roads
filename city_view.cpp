@@ -24,12 +24,24 @@ void CityView::RoadSelect() {
 	else {
 		const std::vector<Road*> roads = city->GetRoads();
 		if (roads.empty()) {
-			std::cerr << "roads empty??" << std::endl;
 			return;
 		}
 		selected_road_ = (RoadView*) roads[0]->GetView(game_);
 		selected_road_->SelectFromCity(city->GetIndex());
 	}
+}
+
+NodeView* CityView::NextHorizontally(int direction) {
+	if (selected_road_ == 0) {
+		return NodeView::NextHorizontally(direction);
+	}
+	else {
+		City* city = (City*) node_;
+		const std::vector<Road*> roads = city->GetRoads();
+		
+	}
+	
+	return this;
 }
 
 bool CityView::IsRoadSelected() {

@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 
 #include <iostream>
+#include <cmath>
+#include <cstdio>
 
 Painter::Painter(sf::RenderWindow* window) {
 	window_ = window;
@@ -41,19 +43,38 @@ void Painter::Draw(const Circle& circle) {
 	window_->draw(draw_circle);
 }
 
+std::pair<double, double> Painter::ToLength(std::pair<double, double> vector, double length) {
+	double initial = std::sqrt(vector.first*vector.first + vector.second*vector.second);
+	return {vector.first * length / initial, vector.second * length / initial};
+}
+
+
 void Painter::Draw(const Line& line) {
-	int x1 = Transform(line.x1, display_width_);
-	int y1 = Transform(line.y1, display_height_);
-	int x2 = Transform(line.x2, display_width_);
-	int y2 = Transform(line.y2, display_height_);
+	double dx = line.x2 - line.x1;
+	double dy = line.y2 - line.y1;
+	double dx1 = -dy;
+	double dy1 = dx;
+	std::pair<double, double> vec = ToLength({dx1, dy1}, line.thickness / 2);
 
-	sf::Vertex draw_line[] =
-	{
-	    sf::Vertex(sf::Vector2f(x1, y1)),
-	    sf::Vertex(sf::Vector2f(x2, y2))
-	};
+	printf("dx %.3f dy %.3f dx1 %.3f dy1 %.3f vec.x %.3f vec.y %.3f\n", dx, dy, dx1, dy1, vec.first, vec.second);
 
-	window_->draw(draw_line, 2, sf::Lines);
+	double x1 = Transform(line.x1 + vec.first, display_width_);
+	double x2 = Transform(line.x2 + vec.first, display_width_);
+	double x3 = Transform(line.x2 - vec.first, display_width_);
+	double x4 = Transform(line.x1 - vec.first, display_width_);
+	double y1 = Transform(line.y1 + vec.second, display_width_);
+	double y2 = Transform(line.y2 + vec.second, display_width_);
+	double y3 = Transform(line.y2 - vec.second, display_width_);
+	double y4 = Transform(line.y1 - vec.second, display_width_);
+
+	sf::ConvexShape draw_rect;
+	draw_rect.setPointCount(4);
+	draw_rect.setFillColor(sf::Color(line.color.r, line.color.g, line.color.b));
+	draw_rect.setPoint(0, sf::Vector2f(x1, y1));
+	draw_rect.setPoint(1, sf::Vector2f(x2, y2));
+	draw_rect.setPoint(2, sf::Vector2f(x3, y3));
+	draw_rect.setPoint(3, sf::Vector2f(x4, y4));
+	window_->draw(draw_rect);
 }
 
 int Painter::Width() {

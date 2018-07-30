@@ -4,19 +4,21 @@
 #include "node.h"
 
 class NodeView : public ObjectView {
+private:
+	NodeView* Next(const std::function<bool(Node*, Node*)>& less, const std::function<bool(Node*, Node*)>& same);
+	bool IsInCloseRange(double base, double y);
+	bool IsInDirectionFromTo(double from, double to, int direction);
+	void UpdateIfBetter(NodeView*& current, Node* candidate, const std::function<bool(Node*, Node*)>& less);
 protected:
 	Game* game_;
 	Node* node_;
 	bool focused_;
-
-	bool IsInCloseRange(int base, int y);
-	bool IsInDirectionFromTo(Node* from, Node* to, int direction);
 public:
 	NodeView(Game* game, Node* node);
 	Node* GetNode() const;
 
-	NodeView* NextVertically(int direction);
-	NodeView* NextHorizontally(int direction);
+	virtual NodeView* NextVertically(int direction);
+	virtual NodeView* NextHorizontally(int direction);
 
 	virtual void RoadSelect();
 	virtual bool IsRoadSelected();

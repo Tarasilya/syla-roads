@@ -18,26 +18,26 @@ Game::Game(Painter* painter) {
 }
 
 void Game::InitMap() {
-	City* city_one = new City(-0.75, 0, 0);
-	City* city_two = new City(-0.25, 0, 1);
-	City* city_three = new City(0.25, 0, 2);
-	City* city_four = new City(0.75, 0, 3);
-	objects_.push_back(city_one);
-	objects_.push_back(city_two);
-	objects_.push_back(city_three);
-	objects_.push_back(city_four);
-	nodes_.push_back(city_one);
-	nodes_.push_back(city_two);
-	nodes_.push_back(city_three);
-	nodes_.push_back(city_four);
-	std::vector<City*> cities;
-	cities.push_back(city_one);
-	cities.push_back(city_two);
-	Road* road = new Road(cities);
-	objects_.push_back(road);
-
-	city_one->AddRoad(road);
-	city_two->AddRoad(road);
+	std::cerr << "1" << std::endl;
+	nodes_.push_back(new City(-0.75, 0, 0));
+	nodes_.push_back(new City(-0.25, 0, 1));
+	nodes_.push_back(new City(0.25, 0, 2));
+	nodes_.push_back(new City(0.75, 0, 3));
+	nodes_.push_back(new City(0, -0.5, 4));
+	std::cerr << "2" << std::endl;
+	for (auto node: nodes_) {
+		objects_.push_back(node);
+	}
+	std::cerr << "3" << std::endl;
+	std::vector<City*> cities1 = {(City*) nodes_[0], (City*) nodes_[1]};
+	std::vector<City*> cities2 = {(City*) nodes_[1], (City*) nodes_[4]};
+	std::cerr << "4" << std::endl;
+	Road* road1 = new Road(cities1);
+	Road* road2 = new Road(cities2);
+	std::cerr << "5" << std::endl;
+	objects_.push_back(road1);
+	objects_.push_back(road2);
+	std::cerr << "6" << std::endl;
 
 	total_time_ = 0;
 	seconds_ = 0;

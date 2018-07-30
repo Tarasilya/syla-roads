@@ -13,6 +13,8 @@
 
 Road::Road(std::vector<City*> cities)
 {
+    cities[0]->AddRoad(this);
+    cities[1]->AddRoad(this);
     contingents_.assign(2, {});
     cities_indices_ = {cities[0]->GetIndex(), cities[1]->GetIndex()};
 	view_ = 0;
