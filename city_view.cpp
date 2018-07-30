@@ -36,9 +36,15 @@ NodeView* CityView::NextHorizontally(int direction) {
 		return NodeView::NextHorizontally(direction);
 	}
 	else {
-		City* city = (City*) node_;
-		const std::vector<Road*> roads = city->GetRoads();
-		
+		// City* city = (City*) node_;
+		// const std::vector<Road*> roads = city->GetRoads();
+		// Road* target = 0;
+		// for (auto road_: roads) {
+		// 	if (road_ == selected_road_->GetRoad()) {
+		// 		continue
+		// 	}
+		// 	if (target == 0 || IsBetweenInDirection(selected_road_->GetRoad(), road_, target))
+		// }
 	}
 	
 	return this;

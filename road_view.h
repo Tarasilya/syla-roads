@@ -15,4 +15,6 @@ public:
 
 	void SelectFromCity(int city_id);
 	void DeselectFromCity(int city_id);
+
+	Road* GetRoad();
 };

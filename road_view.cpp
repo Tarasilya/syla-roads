@@ -45,3 +45,7 @@ void RoadView::DeselectFromCity(int city_id) {
 		}
 	}
 }
+
+Road* RoadView::GetRoad() {
+    return road_;
+}
