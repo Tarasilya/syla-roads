@@ -2,9 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <iostream>
 #include <cmath>
-#include <cstdio>
 
 Painter::Painter(sf::RenderWindow* window) {
 	window_ = window;
@@ -55,8 +53,6 @@ void Painter::Draw(const Line& line) {
 	double dx1 = -dy;
 	double dy1 = dx;
 	std::pair<double, double> vec = ToLength({dx1, dy1}, line.thickness / 2);
-
-	printf("dx %.3f dy %.3f dx1 %.3f dy1 %.3f vec.x %.3f vec.y %.3f\n", dx, dy, dx1, dy1, vec.first, vec.second);
 
 	double x1 = Transform(line.x1 + vec.first, display_width_);
 	double x2 = Transform(line.x2 + vec.first, display_width_);
