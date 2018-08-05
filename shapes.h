@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 struct Color {
 	int r;
 	int g;
@@ -28,4 +30,10 @@ struct Line {
 	double y2;
 	Color color;
 	double thickness;
+};
+
+struct Text {
+	double x;
+	double y;
+	std::string text;
 };

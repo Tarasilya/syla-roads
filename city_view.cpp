@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <sstream>
 
 CityView::CityView(Game* game, City* city) : NodeView(game, city), selected_road_(0) {}
 
@@ -13,6 +14,12 @@ void CityView::Draw(Painter* painter) const {
     City* city = (City*) node_;
     Circle city_image = {city->x(), city->y(), 0.1, city_color};
     painter->Draw(city_image);
+    if (focused_) {
+    	std::stringstream ss;
+    	ss << city->GetIndex();
+		Text text = {-1, -1, ss.str()};     	
+		painter->Draw(text);
+    }
 }
 
 void CityView::RoadSelect() {

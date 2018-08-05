@@ -23,6 +23,7 @@ public:
 	void Draw(const Rectangle& rect);
 	void Draw(const Circle& circle);
 	void Draw(const Line& line);
+	void Draw(const Text& test);
 
 	virtual int Width();
 	virtual int Height();
