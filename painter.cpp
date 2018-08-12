@@ -11,7 +11,7 @@ Painter::Painter(sf::RenderWindow* window) {
 	display_width_ = window_->getSize().x;
 	display_height_ = window_->getSize().y;
 
-	if (!font.loadFromFile("tahoma.ttf"))
+	if (!font_.loadFromFile("font.ttf"))
 	{
 	    std::cerr << "cant load font!!" << std::endl;
 	}	

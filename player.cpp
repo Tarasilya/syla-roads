@@ -16,7 +16,6 @@ Player::Player(NodeView* baseView) : baseView_(baseView), focusedView_(0) {
 }
 
 bool Player::ProcessKey(sf::Keyboard::Key key) {
-	std::cerr << "Player::ProcessKey " << key << std::endl;
 	if (key == controls_[Control::MOVE_LEFT]) {
 		if (focusedView_) {
 			FocusOn(focusedView_->NextHorizontally(-1));

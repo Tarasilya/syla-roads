@@ -23,7 +23,6 @@ void CityView::Draw(Painter* painter) const {
 }
 
 void CityView::RoadSelect() {
-	std::cerr << "CityView::RoadSelect" << std::endl;
 	City* city = (City*) node_;
 	if (selected_road_ != 0) {
 		selected_road_->DeselectFromCity(city->GetIndex());
@@ -56,7 +55,6 @@ NodeView* CityView::NextHorizontally(int direction) {
 		City* city = (City*) node_;
 		const std::vector<Road*> roads = city->GetRoads();
 		Road* target = 0;
-		std::cerr << "size: " << roads.size() << std::endl;
 		for (auto road: roads) {
 			if (road == selected_road_->GetRoad()) {
 				continue;
@@ -85,23 +83,17 @@ NodeView* CityView::NextHorizontally(int direction) {
 bool CityView::AreInOrder(Road* road1, Road* road2, Road* road3) {
 	std::vector<Road*> roads = {road1, road2, road3};
 	for (int i = 0; i < 3; i++) {
-		std::cerr << roads[0] << " " << roads[1] << " " << roads[2] << std::endl;
 		if (VectorMul(roads[0], roads[1]) > 0 && VectorMul(roads[1], roads[2]) > 0) {
 			return true;
 		}
-		std::cerr << "rotato" << std::endl;
 		std::rotate(roads.begin(), roads.begin() + 1, roads.end());
-		std::cerr << "rotato1" << std::endl;
 	}
 	return false;
 }
 
 double CityView::VectorMul(Road* road1, Road* road2) {
-	std::cerr << "mulling" << std::endl;
 	std::pair<double, double> a = RoadToVector(road1);
 	std::pair<double, double> b = RoadToVector(road2);
-	printf("(%.3f, %.3f), (%.3f, %.3f)\n", a.first, a.second, b.first, b.second);
-	std::cerr << "pulling" << std::endl;
 	return a.first * b.second - a.second * b.first;
 }
 
