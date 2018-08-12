@@ -10,6 +10,11 @@ Painter::Painter(sf::RenderWindow* window) {
 
 	display_width_ = window_->getSize().x;
 	display_height_ = window_->getSize().y;
+
+	if (!font.loadFromFile("tahoma.ttf"))
+	{
+	    std::cerr << "cant load font!!" << std::endl;
+	}	
 }
 
 void Painter::Draw(const Rectangle& rect) {
@@ -75,17 +80,11 @@ void Painter::Draw(const Line& line) {
 }
 
 void Painter::Draw(const Text& text) {
-	sf::Font font;
-	if (!font.loadFromFile("arial.ttf"))
-	{
-	    std::cerr << "cant load font!!" << std::endl;
-	}
-	//std::cerr << "printing" << std::endl;
 	int x = Transform(text.x, display_width_);
 	int y = Transform(text.y, display_height_);
 	sf::Text draw_text;
 	draw_text.setString(text.text);
-	draw_text.setFont(font);
+	draw_text.setFont(font_);
 	draw_text.setCharacterSize(100);
 	draw_text.setPosition(sf::Vector2f(x, y));
 	draw_text.setFillColor(sf::Color::White);

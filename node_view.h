@@ -2,6 +2,7 @@
 
 #include "object_view.h"
 #include "node.h"
+#include <functional>
 
 class NodeView : public ObjectView {
 private:

@@ -12,6 +12,7 @@ const Color SELECTED_ROAD_COLOR = {0, 255, 0};
 class Painter {
 private:
 	sf::RenderWindow* window_;
+	sf::Font font_;
 	int display_width_;
 	int display_height_;
 
