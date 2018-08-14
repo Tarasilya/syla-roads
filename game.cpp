@@ -8,12 +8,15 @@
 #include "node.h"
 #include "player.h"
 #include "map.h"
+#include "game_config.h"
 
-Game::Game(Painter* painter) {
+Game::Game(Painter* painter, GameConfig* config) {
 	painter_ = painter;
 	InitMap();
 	InitViews();
-	players_.push_back(new Player((NodeView*) GetNodes()[0]->GetView(this)));
+	for (int i = 0; i < 2; i++) {
+		players_.push_back(new Player(config->GetControls(i), (NodeView*) GetNodes()[0]->GetView(this)));
+	}
 }
 
 void Game::InitMap() {

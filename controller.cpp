@@ -1,12 +1,15 @@
 #include "controller.h"
 #include "painter.h"
 #include "game.h"
+#include "game_config.h"
+
 #include <iostream>
 
 void Controller::Run() {
 	window_ = new sf::RenderWindow(sf::VideoMode(1000, 1000), "SYLA");
 	Painter* painter = new Painter(window_);
-	game_ = new Game(painter);
+	GameConfig* config = new GameConfig("config.txt");
+	game_ = new Game(painter, config);
 
 	double t = clock();
 	while (window_->isOpen()) {

@@ -9,6 +9,7 @@ class Node;
 class Player;
 class Painter;
 class Map;
+class GameConfig;
 
 class Game {
 private:
@@ -24,7 +25,7 @@ private:
 	void InitViews();
 	
 public: 
-	Game(Painter* painter);
+	Game(Painter* painter, GameConfig* config);
 	void Run();
 	void Draw();
 	void ProcessKey(sf::Keyboard::Key key);

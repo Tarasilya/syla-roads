@@ -5,14 +5,7 @@
 
 #include <iostream>
 
-Player::Player(NodeView* baseView) : baseView_(baseView), focusedView_(0) {
-	controls_ = std::vector<sf::Keyboard::Key>(5);
-	controls_[MOVE_LEFT] = sf::Keyboard::Left;
-	controls_[MOVE_RIGHT] = sf::Keyboard::Right;
-	controls_[MOVE_UP] = sf::Keyboard::Up;
-	controls_[MOVE_DOWN] = sf::Keyboard::Down;
-	controls_[SELECT] = sf::Keyboard::S;
-	controls_[ROAD_SELECT] = sf::Keyboard::R;
+Player::Player(std::map<sf::Keyboard::Key, Control> controls, NodeView* baseView) : baseView_(baseView), focusedView_(0), controls_(controls) {
 }
 
 bool Player::ProcessKey(sf::Keyboard::Key key) {

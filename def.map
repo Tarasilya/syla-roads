@@ -1,30 +1,15 @@
-12
+14
 0 -0.75 0
 0 -0.25 0
 0 0.25 0
 0 0.75 0
 0 0 -0.5
 0 0 0.5
+0 0.8 0.8
 1 0 1
 1 1 4
 1 1 2
 1 1 5
 1 4 2
 1 3 5
-
-	map->nodes_.push_back(new City(-0.75, 0, 0));
-	map->nodes_.push_back(new City(-0.25, 0, 1));
-	map->nodes_.push_back(new City(0.25, 0, 2));
-	map->nodes_.push_back(new City(0.75, 0, 3));
-	map->nodes_.push_back(new City(0, -0.5, 4));
-	map->nodes_.push_back(new City(0, 0.5, 5));
-	for (auto node: map->nodes_) {
-		map->objects_.push_back(node);
-	}
-	map->objects_.push_back(new Road({(City*) map->nodes_[0], (City*) map->nodes_[1]}));
-	map->objects_.push_back(new Road({(City*) map->nodes_[1], (City*) map->nodes_[4]}));
-	map->objects_.push_back(new Road({(City*) map->nodes_[1], (City*) map->nodes_[2]}));
-	map->objects_.push_back(new Road({(City*) map->nodes_[1], (City*) map->nodes_[5]}));
-	map->objects_.push_back(new Road({(City*) map->nodes_[4], (City*) map->nodes_[2]}));
-	map->objects_.push_back(new Road({(City*) map->nodes_[3], (City*) map->nodes_[5]}));
-
+1 5 6
