@@ -11,6 +11,11 @@
 #include <iostream>
 
 
+RoadState Road::GetState()
+{
+    return state_;
+}
+
 Road::Road(std::vector<City*> cities)
 {
     cities[0]->AddRoad(this);
@@ -125,7 +130,7 @@ void Road::ResetToTrade()
 
 }
 
-void Road::InitiateWar(int city_index)
+void Road::InitiateWar()
 {
     state_ = WAR;
     syla_influx_[0] = 0;

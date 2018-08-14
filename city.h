@@ -4,12 +4,14 @@
 #include "node.h"
 #include "object_view.h"
 
+class Player;
 class Road;
 
 class City : public Node
 {
 private:
     int index_;
+    Player* player_;
     std::vector<Road*> roads_;
     double syla_reserve_;
     double syla_capacity_;
@@ -29,6 +31,7 @@ public:
 
     operator std::string() const;
     int GetIndex();
+    Player* GetOwner();
     ObjectView* GetView(Game* game);
     const std::vector<Road*>& GetRoads();
 };

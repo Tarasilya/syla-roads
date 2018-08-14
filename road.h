@@ -36,7 +36,7 @@ public:
     double CityExpense(int city_index);
 
     int GetCityPositionInVectors(int city_index);
-    void InitiateWar(int city_index);
+    void InitiateWar();
     void TickBuild(double tick_time);
 	void TickTrade(double tick_time);
 	void TickWar(double tick_time);
@@ -44,6 +44,8 @@ public:
     void SetSylaInflux(int city_index, double syla_rate);
     void AddCrew(int position, double thickness);
 
+
+    RoadState GetState();
     const std::vector<City*>& GetCities();
     ObjectView* GetView(Game* game);
 };

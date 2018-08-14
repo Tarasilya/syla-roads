@@ -10,6 +10,11 @@ const double CLOSE_RANGE = 0.001;
 
 NodeView::NodeView(Game* game, Node* node) : node_(node), game_(game), focused_(false) {}
 
+RoadView* NodeView::GetSelectedRoad()
+{
+	throw 1;
+}
+
 NodeView* NodeView::NextHorizontally(int direction) {
 	return Next(
 		[direction, this](Node* a, Node* b) {

@@ -8,6 +8,12 @@
 
 CityView::CityView(Game* game, City* city) : NodeView(game, city), selected_road_(0) {}
 
+
+RoadView* CityView::GetSelectedRoad()
+{
+	return selected_road_;
+}
+
 void CityView::Draw(Painter* painter) const {
     Color city_color = {255, 255 * focused_, 0};
     City* city = (City*) node_;

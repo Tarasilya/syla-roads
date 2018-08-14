@@ -64,7 +64,7 @@ void Game::ProcessKey(sf::Keyboard::Key key)
 	}
 	else if (key == sf::Keyboard::V)
 	{
-        ((Road*) objects_[2])->InitiateWar(0);
+        ((Road*) objects_[2])->InitiateWar();
 	}
 	else if (key == sf::Keyboard::D)
 	{

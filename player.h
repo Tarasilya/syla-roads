@@ -1,12 +1,14 @@
 #pragma once
 
+#include "control_keys.h"
 #include <SFML/Window.hpp>
-
+#include <map>
 class NodeView;
 
 class Player {
 private:
-	std::vector<sf::Keyboard::Key> controls_;
+	int index_;
+	std::map<sf::Keyboard::Key, Control> controls_;
 	NodeView* focusedView_;
 	NodeView* baseView_;
 

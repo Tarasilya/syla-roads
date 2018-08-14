@@ -16,6 +16,11 @@ City::City(double x_coord, double y_coord, int index) :
     view_ = 0;
 }
 
+Player* City::GetOwner()
+{
+    return player_;
+}
+
 void City::AddRoad(Road* road) {
     roads_.push_back(road);     
 }

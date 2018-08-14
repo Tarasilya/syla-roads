@@ -1,47 +1,49 @@
+#include "enum.h"
+#include "city.h"
+#include "road.h"
 #include "player.h"
 #include "control_keys.h"
 #include "node.h"
 #include "node_view.h"
+#include "road_view.h"
 
 #include <iostream>
 
 Player::Player(NodeView* baseView) : baseView_(baseView), focusedView_(0) {
-	controls_ = std::vector<sf::Keyboard::Key>(5);
-	controls_[MOVE_LEFT] = sf::Keyboard::Left;
-	controls_[MOVE_RIGHT] = sf::Keyboard::Right;
-	controls_[MOVE_UP] = sf::Keyboard::Up;
-	controls_[MOVE_DOWN] = sf::Keyboard::Down;
-	controls_[SELECT] = sf::Keyboard::S;
-	controls_[ROAD_SELECT] = sf::Keyboard::R;
+
 }
 
 bool Player::ProcessKey(sf::Keyboard::Key key) {
-	std::cerr << "Player::ProcessKey " << key << std::endl;
-	if (key == controls_[Control::MOVE_LEFT]) {
+	if (controls_[key] == 0){
+		return false;
+	}
+	switch (controls_[key]){
+
+	case MOVE_LEFT: 
 		if (focusedView_) {
 			FocusOn(focusedView_->NextHorizontally(-1));
 		}
 		return true;
-	}
-	if (key == controls_[Control::MOVE_RIGHT]) {
+
+	case MOVE_RIGHT:
 		if (focusedView_) {
 			FocusOn(focusedView_->NextHorizontally(1));
 		}
 		return true;
-	}
-	if (key == controls_[Control::MOVE_UP]) {
+	
+	case MOVE_UP:
 		if (focusedView_) {
 			FocusOn(focusedView_->NextVertically(-1));
 		}
 		return true;
-	}
-	if (key == controls_[Control::MOVE_DOWN]) {
+	
+	case MOVE_DOWN:
 		if (focusedView_) {
 			FocusOn(focusedView_->NextVertically(1));
 		}
 		return true;
-	}
-	if (key == controls_[SELECT]) {
+	
+	case SELECT:
 		if (focusedView_ == 0) {
 			FocusOn(baseView_);
 		}
@@ -56,15 +58,44 @@ bool Player::ProcessKey(sf::Keyboard::Key key) {
 			}
 		}
 		return true;
-	}
-	if (key == controls_[ROAD_SELECT]) {
+	
+	case ROAD_SELECT:
 		std::cerr << "road selected" << std::endl;
 		if (focusedView_ != 0) {
 			focusedView_->RoadSelect();
 		}
 		return true;
 	}
-	return false;
+
+		
+	if (focusedView_ != 0) {
+		if (focusedView_->IsRoadSelected()){
+			Road* current_road = focusedView_->GetSelectedRoad()->GetRoad();
+			City* current_city = (City*) focusedView_->GetNode();
+			if (current_city->GetOwner() == this){
+				if (controls_[key] == BUILD && current_road->GetState() == CONSTRUCTION){
+					current_city->SendCrew(5, current_road);
+				}
+				if (controls_[key] == TRADE_LOW && current_road->GetState() == TRADE){
+					current_city->SendCrew(5, current_road);
+				}
+				if (controls_[key] == TRADE_HIGH && current_road->GetState() == TRADE){
+					current_city->SendCrew(10, current_road);
+				}
+				if (controls_[key] == DECLARE_WAR && current_road->GetState() == TRADE){
+					current_road->InitiateWar();
+				}
+				if (controls_[key] == COMBAT_LOW && current_road->GetState() == WAR){
+					current_city->SendCrew(5, current_road);
+				}
+				if (controls_[key] == COMBAT_HIGH && current_road->GetState() == WAR){
+					current_city->SendCrew(10, current_road);
+				}
+			}
+		}
+	}
+	return true;
+
 }
 
 void Player::FocusOn(NodeView* view) {
