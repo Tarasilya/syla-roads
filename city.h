@@ -28,9 +28,11 @@ public:
     void Tick(double tick_time);
 
     void AddRoad(Road* road);
+    void ChangeOwner(Player* new_owner);
 
     operator std::string() const;
     int GetIndex();
+    double GetWall();
     Player* GetOwner();
     ObjectView* GetView(Game* game);
     const std::vector<Road*>& GetRoads();

@@ -49,6 +49,10 @@ int City::GetIndex() {
 	return index_;
 }
 
+double City::GetWall() {
+    return wall_;
+}
+
 void City::DamageWall(double syla_rate){
 	wall_ -= syla_rate;
 }
@@ -61,6 +65,11 @@ void City::SendCrew(double syla_rate, Road* target_road)
 {
     std::cout << "SendCrew: " << syla_rate << "\n";
 	target_road->SetSylaInflux(index_, syla_rate);
+}
+
+void City::ChangeOwner(Player* new_owner)
+{
+    player_ = new_owner;
 }
 
 bool City::LoseSyla(double syla)
@@ -79,3 +88,4 @@ bool City::LoseSyla(double syla)
 const std::vector<Road*>& City::GetRoads() {
 	return roads_;
 }
+

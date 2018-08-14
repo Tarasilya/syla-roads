@@ -213,6 +213,10 @@ void Road::TickWar(double tick_time)
             if (front_crew[i]->GetEndPercentage() >= 1)
             {
                 cities_connected_[!i]->DamageWall(tick_time*(front_crew[i]->GetThickness() - front_crew[1-i]->GetThickness() ));
+                if (cities_connected[!i]->GetWall() <= 0)
+                {
+                    cities_connected_[!i]->ChangeOwner(cities_connected_[i]->GetOwner());
+                }
             }
         }
 	}
