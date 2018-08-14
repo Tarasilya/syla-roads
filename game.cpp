@@ -7,39 +7,27 @@
 #include "game_object.h"
 #include "node.h"
 #include "player.h"
+#include "map.h"
+#include "game_config.h"
 
-
-
-Game::Game(Painter* painter) {
+Game::Game(Painter* painter, GameConfig* config) {
 	painter_ = painter;
 	InitMap();
 	InitViews();
-	players_.push_back(new Player((NodeView*) nodes_[0]->GetView(this)));
+	for (int i = 0; i < 2; i++) {
+		players_.push_back(new Player(config->GetControls(i), (NodeView*) GetNodes()[0]->GetView(this)));
+	}
 }
 
 void Game::InitMap() {
-	nodes_.push_back(new City(-0.75, 0, 0));
-	nodes_.push_back(new City(-0.25, 0, 1));
-	nodes_.push_back(new City(0.25, 0, 2));
-	nodes_.push_back(new City(0.75, 0, 3));
-	nodes_.push_back(new City(0, -0.5, 4));
-	nodes_.push_back(new City(0, 0.5, 5));
-	for (auto node: nodes_) {
-		objects_.push_back(node);
-	}
-	objects_.push_back(new Road({(City*) nodes_[0], (City*) nodes_[1]}));
-	objects_.push_back(new Road({(City*) nodes_[1], (City*) nodes_[4]}));
-	objects_.push_back(new Road({(City*) nodes_[1], (City*) nodes_[2]}));
-	objects_.push_back(new Road({(City*) nodes_[1], (City*) nodes_[5]}));
-	objects_.push_back(new Road({(City*) nodes_[4], (City*) nodes_[2]}));
-	objects_.push_back(new Road({(City*) nodes_[3], (City*) nodes_[5]}));
+	map_ = new Map("def.map");
 
 	total_time_ = 0;
 	seconds_ = 0;
 }
 
 void Game::InitViews() {
-	for (auto object: objects_) {
+	for (auto object: map_->GetObjects()) {
 		views_.push_back(object->GetView(this));
 	}
 }
@@ -52,29 +40,9 @@ void Game::Draw() {
 
 void Game::ProcessKey(sf::Keyboard::Key key)
 {
-	if (key == sf::Keyboard::B)
-	{
-
-		((City*) objects_[0])->SendCrew(5, (Road*) objects_[2]);
-	}
-	else if (key == sf::Keyboard::C)
-	{
-
-		((City*) objects_[0])->SendCrew(0, (Road*) objects_[2]);
-	}
-	else if (key == sf::Keyboard::V)
-	{
-        ((Road*) objects_[2])->InitiateWar();
-	}
-	else if (key == sf::Keyboard::D)
-	{
-        ((City*) objects_[1])->SendCrew(6, (Road*) objects_[2]);
-	}
-	else {
-		for (auto player : players_) {
-			if (player->ProcessKey(key)) {
-				break;
-			}
+	for (auto player : players_) {
+		if (player->ProcessKey(key)) {
+			break;
 		}
 	}
 }
@@ -91,7 +59,7 @@ void Game::Tick(double dt)
 		total_time_ = 0;
 	}
 
-	for (auto object: objects_)
+	for (auto object: map_->GetObjects())
 	{
 		object->Tick(dt);
 		if (vyvod)
@@ -102,5 +70,5 @@ void Game::Tick(double dt)
 }
 
 const std::vector<Node*>& Game::GetNodes() const {
-	return nodes_;
+	return map_->GetNodes();
 }

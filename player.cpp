@@ -9,8 +9,8 @@
 
 #include <iostream>
 
-Player::Player(NodeView* baseView) : baseView_(baseView), focusedView_(0) {
 
+Player::Player(std::map<sf::Keyboard::Key, Control> controls, NodeView* baseView) : baseView_(baseView), focusedView_(0), controls_(controls) {
 }
 
 bool Player::ProcessKey(sf::Keyboard::Key key) {

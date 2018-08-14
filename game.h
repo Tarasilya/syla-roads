@@ -1,20 +1,23 @@
 #pragma once
 
-#include "painter.h"
+#include <SFML/Window.hpp>
+#include <vector>
 
 class GameObject;
 class ObjectView;
 class Node;
 class Player;
+class Painter;
+class Map;
+class GameConfig;
 
 class Game {
 private:
 	Painter* painter_;
-	std::vector<GameObject*> objects_;
+	Map* map_;
 	double total_time_;
 	int seconds_;
 
-	std::vector<Node*> nodes_;
 	std::vector<ObjectView*> views_;
 	std::vector<Player*> players_;
 
@@ -22,7 +25,7 @@ private:
 	void InitViews();
 	
 public: 
-	Game(Painter* painter);
+	Game(Painter* painter, GameConfig* config);
 	void Run();
 	void Draw();
 	void ProcessKey(sf::Keyboard::Key key);
