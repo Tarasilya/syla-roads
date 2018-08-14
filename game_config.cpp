@@ -3,6 +3,7 @@
 #include <fstream>
 
 GameConfig::GameConfig(std::string filename) {
+	controls_ = std::vector<std::map<sf::Keyboard::Key, Control>>(2);
 	std::ifstream in(filename);
 	for (int i = 0; i < 2; i++) {
 		for (int j = 1; j <= NUMBER_OF_CONTROLS; j++) {

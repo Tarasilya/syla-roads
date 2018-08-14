@@ -17,9 +17,9 @@ private:
 	double VectorMul(Road* road1, Road* road2);
 	std::pair<double, double> RoadToVector(Road* road);
 public:
-	RoadView* GetSelectedRoad();
-	City* GetSelectedCity();
 	CityView(Game* game, City* city);
+	City* GetSelectedCity();
+	virtual RoadView* GetSelectedRoad() override;
 	virtual void Draw(Painter* painter) const override;
 	virtual void RoadSelect() override;
 	virtual bool IsRoadSelected() override;
