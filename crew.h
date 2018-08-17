@@ -24,5 +24,6 @@ public:
     double GetThickness();
     double GetStartPercentage();
 	double GetEndPercentage();
+    double GetCumulativeSyla();
 
 };

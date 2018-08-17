@@ -7,3 +7,12 @@ double Node::x() {
 double Node::y() {
 	return y_;
 }
+
+double Node::GetSyla() {
+	return 0;
+}
+
+Player* Node::GetOwner()
+{
+	return owner_;
+}

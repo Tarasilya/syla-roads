@@ -16,10 +16,6 @@ City::City(double x_coord, double y_coord, int index) :
     view_ = 0;
 }
 
-Player* City::GetOwner()
-{
-    return player_;
-}
 
 void City::AddRoad(Road* road) {
     roads_.push_back(road);     
@@ -61,6 +57,18 @@ void City::AcquireSyla(double syla){
 	syla_reserve_ = std::min(syla_reserve_ + syla, syla_capacity_);
 }
 
+double City::GetSyla()
+{
+    double result = syla_reserve_;
+    
+    /*for (int i = 0; i < roads_.size(); i++)
+    {
+        result += roads_[i]->CumulativeArmy(roads_[i]->GetCityPositionInVectors(index_));
+    }
+    */
+    return result;
+}
+
 void City::SendCrew(double syla_rate, Road* target_road)
 {
     std::cout << "SendCrew: " << syla_rate << "\n";
@@ -69,7 +77,13 @@ void City::SendCrew(double syla_rate, Road* target_road)
 
 void City::ChangeOwner(Player* new_owner)
 {
-    player_ = new_owner;
+    owner_ = new_owner;
+}
+
+void City::ResetCapture()
+{
+    wall_ = 100;
+    syla_reserve_ = 500;
 }
 
 bool City::LoseSyla(double syla)

@@ -17,6 +17,7 @@ public:
 
     double x();
     double y();
+    virtual double GetSyla();
 };
 
 

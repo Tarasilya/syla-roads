@@ -171,6 +171,17 @@ void Road::TickTrade(double tick_time)
 	}
 }
 
+double Road::CumulativeArmy(int position)
+{
+    double result = 0;
+    int num_crew = contingents_[position].size();
+    for (int i = 0; i < num_crew; i++)
+    {
+        result += contingents_[position][i]->GetCumulativeSyla();
+    }
+    return result;
+}
+
 void Road::TickWar(double tick_time)
 {
 
@@ -214,10 +225,13 @@ void Road::TickWar(double tick_time)
             }
             if (front_crew[i]->GetEndPercentage() >= 1)
             {
-                cities_connected_[1-i]->DamageWall(tick_time*(front_crew[i]->GetThickness() - front_crew[1-i]->GetThickness() ));
-                if (cities_connected_[1-i]->GetWall() <= 0)
+
+                cities_connected_[!i]->DamageWall(tick_time*(front_crew[i]->GetThickness() - front_crew[1-i]->GetThickness() ));
+                if (cities_connected_[!i]->GetWall() <= 0)
                 {
-                    cities_connected_[1-i]->ChangeOwner(cities_connected_[i]->GetOwner());
+                    cities_connected_[!i]->ChangeOwner(cities_connected_[i]->GetOwner());
+                    cities_connected_[!i]->ResetCapture();
+                    ResetToTrade();
                 }
             }
         }

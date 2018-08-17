@@ -31,4 +31,5 @@ public:
 	void ProcessKey(sf::Keyboard::Key key);
 	void Tick(double dt);
 	const std::vector<Node*>& GetNodes() const;
+	std::vector<int> GetScores();
 };

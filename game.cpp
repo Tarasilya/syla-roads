@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <sstream>
 #include "game.h"
 #include "painter.h"
 #include "road.h"
@@ -40,6 +41,15 @@ void Game::Draw() {
 	for (auto view: views_) {
 		view->Draw(painter_);
 	}
+	std::vector<int> scores = GetScores();
+	for (int i = 0; i < 2; i++)
+	{
+		std::stringstream ss;
+		ss << scores[1];
+		double j = i;
+		Text score = { j * 2 - 1, 1, ss.str()};
+		painter_->Draw(score);
+	}
 }
 
 void Game::ProcessKey(sf::Keyboard::Key key)
@@ -71,6 +81,22 @@ void Game::Tick(double dt)
 		//	std::cout <<(std::string) (*object);
 		}
 	}
+}
+
+std::vector<int> Game::GetScores()
+{
+	std::vector<int> scores(2, 0);
+	for (auto object: GetNodes())
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			if (object->GetOwner() == players_[i])
+			{
+				scores[i] += object->GetSyla();
+			}
+		}
+	}
+	return scores;
 }
 
 const std::vector<Node*>& Game::GetNodes() const {

@@ -29,11 +29,12 @@ public:
 
     void AddRoad(Road* road);
     void ChangeOwner(Player* new_owner);
+    void ResetCapture();
 
     operator std::string() const;
+    virtual double GetSyla() override;
     int GetIndex();
     double GetWall();
-    Player* GetOwner();
     ObjectView* GetView(Game* game);
     const std::vector<Road*>& GetRoads();
 };

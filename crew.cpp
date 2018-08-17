@@ -24,6 +24,11 @@ double Crew::GetThickness()
     return thickness_;
 }
 
+double Crew::GetCumulativeSyla()
+{
+	return (GetEndPercentage() - GetStartPercentage()) * GetThickness();
+}
+
 bool Crew::MoveForward(double tick_time, double start_speed, double end_speed, double boundary_coordinate, int crew_index)
 {
 	bool still_present = 1;

@@ -43,7 +43,7 @@ public:
     void MoveContingents();
     void SetSylaInflux(int city_index, double syla_rate);
     void AddCrew(int position, double thickness);
-
+    double CumulativeArmy(int position);
 
     RoadState GetState();
     const std::vector<City*>& GetCities();
