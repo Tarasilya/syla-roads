@@ -32,14 +32,12 @@ Road::Road(std::vector<City*> cities)
     trade_profit_ = 1;
 }
 
-Road::operator std::string() const
-{
-    std::stringstream ss;
-    ss << "Cities' indices: " << cities_indices_[0] << " " << cities_indices_[1] <<
-    "\ncompleteness: " << completeness_[0] << " " << completeness_[1] << "\n";
-    return ss.str();
-}
 
+
+std::vector<std::deque<Crew*>> Road::GetContingents()
+{
+    return contingents_;
+}
 void Road::Tick(double tick_time) {
     if (state_ == CONSTRUCTION)
     {
