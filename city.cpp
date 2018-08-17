@@ -75,6 +75,9 @@ void City::ResetCapture()
 {
     wall_ = 100;
     syla_reserve_ = 500;
+    for (auto road: roads_) {
+        road->ResetToTrade();
+    }
 }
 
 bool City::LoseSyla(double syla)

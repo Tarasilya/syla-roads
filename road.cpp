@@ -122,6 +122,9 @@ void Road::ResetToTrade()
 {
     // By default, road state resets to trade after completion
     // with zero contingents on both sides
+    if (completeness_[0] + completeness_[1] < 1 - 1e-9) {
+        return;
+    }
     completeness_[0] = std::min(1.0, completeness_[0]);
     completeness_[1] = 1 - completeness_[0];
     state_ = TRADE;
