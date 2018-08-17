@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
+
 #include <string>
 
 struct Color {
@@ -10,6 +12,7 @@ struct Color {
 	Color();
 	Color(int r, int g, int b);
 	Color(int r, int g, int b, int a);
+	sf::Color ToSf() const;
 };
 
 struct Rectangle {
@@ -25,6 +28,11 @@ struct Circle {
 	double y;
 	double r;
 	Color color;
+	double outline_r;
+	Color outline_color;
+	Circle();
+	Circle(double x, double y, double r, Color color);
+	Circle(double x, double y, double r, Color color, double outline_r, Color outline_color);	
 };
 
 struct Line {

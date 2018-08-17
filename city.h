@@ -17,7 +17,6 @@ private:
     double wall_;
 
 public:
-    Player* player_;
     City(double x_coord, double y_coord, int index);
 
     void SendCrew(double syla_rate, Road* target_road);
@@ -25,17 +24,16 @@ public:
     void AcquireSyla(double syla);
     bool LoseSyla(double syla);
 
-    void Tick(double tick_time);
+    virtual void Tick(double tick_time) override;
 
     void AddRoad(Road* road);
     void ChangeOwner(Player* new_owner);
     void ResetCapture();
 
-    operator std::string() const;
     virtual double GetSyla() override;
     int GetIndex();
     double GetWall();
-    ObjectView* GetView(Game* game);
+    virtual ObjectView* GetView(Game* game) override;
     const std::vector<Road*>& GetRoads();
 };
 

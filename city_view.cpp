@@ -17,16 +17,30 @@ RoadView* CityView::GetSelectedRoad()
 }
 
 void CityView::Draw(Painter* painter) const {
-    Color city_color = {255, 255 * focused_, 0};
-    City* city = (City*) node_;
-    Circle city_image = {city->x(), city->y(), CITY_RADIUS, city_color};
+	City* city = (City*) node_;
+	Color city_color = city->GetOwner() == 0 ? NEUTRAL_CITY_COLOR : CITY_COLORS[city->GetOwner()->GetId()];
+	Circle city_image;
+	if (!selected_by_.empty()) {
+		Color outline_color = {0, 0, 0};
+		for (int id : selected_by_) {
+			outline_color.r += SELECTION_COLORS[id].r;
+			outline_color.g += SELECTION_COLORS[id].g;
+			outline_color.b += SELECTION_COLORS[id].b;
+
+	    	std::stringstream ss;
+	    	ss << city->GetSyla() << std::endl << city->GetWall();
+			Text text = {id == 0 ? -1 : 0.55, -1, ss.str()};     	
+			painter->Draw(text);
+		}
+		outline_color.r /= selected_by_.size();
+		outline_color.g /= selected_by_.size();
+		outline_color.b /= selected_by_.size();
+		city_image = {city->x(), city->y(), CITY_RADIUS, city_color, CITY_RADIUS / 5, outline_color};
+	}
+	else {
+		city_image = {city->x(), city->y(), CITY_RADIUS, city_color};
+	}
     painter->Draw(city_image);
-    if (focused_) {
-    	std::stringstream ss;
-    	ss << city->GetIndex();
-		Text text = {-1, -1, ss.str()};     	
-		painter->Draw(text);
-    }
 }
 
 void CityView::RoadSelect() {

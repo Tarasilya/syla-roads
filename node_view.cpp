@@ -8,7 +8,7 @@
 
 const double CLOSE_RANGE = 0.001;
 
-NodeView::NodeView(Game* game, Node* node) : node_(node), game_(game), focused_(false) {}
+NodeView::NodeView(Game* game, Node* node) : node_(node), game_(game) {}
 
 RoadView* NodeView::GetSelectedRoad()
 {
@@ -77,8 +77,12 @@ Node* NodeView::GetNode() const {
 	return node_;
 }
 
-void NodeView::SetFocused(bool focused) {
-	focused_ = focused;
+void NodeView::Select(int player_id) {
+	selected_by_.insert(player_id);
+}
+
+void NodeView::Deselect(int player_id) {
+	selected_by_.erase(player_id);
 }
 
 void NodeView::RoadSelect() {

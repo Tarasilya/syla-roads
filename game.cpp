@@ -16,11 +16,11 @@ Game::Game(Painter* painter, GameConfig* config) {
 	InitMap();
 	InitViews();
 	for (int i = 0; i < 2; i++) {
-		players_.push_back(new Player(config->GetControls(i), (NodeView*) GetNodes()[0]->GetView(this)));
+		players_.push_back(new Player(config->GetControls(i), (NodeView*) GetNodes()[0]->GetView(this), i));
 	}
 	for (auto node: map_->GetNodes()) {
 		City* city = (City*) node;
-		city->player_ = players_[0];
+		city->ChangeOwner(players_[rand() % 2]);
 	}
 }
 
@@ -41,13 +41,12 @@ void Game::Draw() {
 	for (auto view: views_) {
 		view->Draw(painter_);
 	}
-	std::vector<int> scores = GetScores();
+	std::vector<double> scores = GetScores();
 	for (int i = 0; i < 2; i++)
 	{
 		std::stringstream ss;
-		ss << scores[1];
-		double j = i;
-		Text score = { j * 2 - 1, 1, ss.str()};
+		ss << scores[i];
+		Text score = { 0.5 - 1 * i, 0.8, ss.str()};
 		painter_->Draw(score);
 	}
 }
@@ -83,16 +82,16 @@ void Game::Tick(double dt)
 	}
 }
 
-std::vector<int> Game::GetScores()
+std::vector<double> Game::GetScores()
 {
-	std::vector<int> scores(2, 0);
-	for (auto object: GetNodes())
+	std::vector<double> scores(2, 0);
+	for (auto node: GetNodes())
 	{
 		for (int i = 0; i < 2; i++)
 		{
-			if (object->GetOwner() == players_[i])
+			if (node->GetOwner() == players_[i])
 			{
-				scores[i] += object->GetSyla();
+				scores[i] += node->GetSyla();
 			}
 		}
 	}

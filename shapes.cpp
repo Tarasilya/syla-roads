@@ -20,3 +20,18 @@ Color::Color()
 {
 	
 }
+Circle::Circle() 
+{}
+
+Circle::Circle(double x_, double y_, double r_, Color color_) 
+	: x(x_), y(y_), r(r_), color(color_)
+{}
+
+Circle::Circle(double x_, double y_, double r_, Color color_, double outline_r_, Color outline_color_) 
+	: x(x_), y(y_), r(r_), color(color_), outline_r(outline_r_), outline_color(outline_color_)
+{}
+
+
+sf::Color Color::ToSf() const {
+	return sf::Color(r, g, b);
+}

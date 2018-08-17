@@ -39,10 +39,13 @@ void Painter::Draw(const Circle& circle) {
 	int x = Transform(circle.x, display_width_);
 	int y = Transform(circle.y, display_height_);
 	int r = TransformSize(circle.r, std::min(display_width_, display_height_));
+	int outline_r = TransformSize(circle.outline_r, std::min(display_width_, display_height_));
 	sf::CircleShape draw_circle (r);
 
 	draw_circle.setPosition(x - r, y - r);
 	draw_circle.setFillColor(sf::Color(circle.color.r, circle.color.g, circle.color.b));
+	draw_circle.setOutlineThickness(outline_r);
+	draw_circle.setOutlineColor(circle.outline_color.ToSf());
 
 	window_->draw(draw_circle);
 }

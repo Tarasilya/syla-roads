@@ -1,6 +1,6 @@
 #pragma once
 
-const int NUMBER_OF_CONTROLS = 7;
+const int NUMBER_OF_CONTROLS = 12;
 
 enum Control {
 	NOTHING = 0,

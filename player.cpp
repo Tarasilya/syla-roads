@@ -10,7 +10,17 @@
 #include <iostream>
 
 
-Player::Player(std::map<sf::Keyboard::Key, Control> controls, NodeView* baseView) : baseView_(baseView), focusedView_(0), controls_(controls) {
+Player::Player(std::map<sf::Keyboard::Key, Control> controls, NodeView* baseView, int id) 
+	: baseView_(baseView), 
+	focusedView_(0), 
+	controls_(controls),
+	id_(id) {
+		std::cerr << "cr pl " << id_ << std::endl;
+}
+
+int Player::GetId() {
+	std::cerr << "id: " << id_ << std::endl;
+	return id_;
 }
 
 bool Player::ProcessKey(sf::Keyboard::Key key) {
@@ -52,7 +62,7 @@ bool Player::ProcessKey(sf::Keyboard::Key key) {
 				focusedView_->RoadSelect();
 			}
 			else {
-				focusedView_->SetFocused(false);
+				focusedView_->Deselect(id_);
 				baseView_ = focusedView_;
 				focusedView_ = 0;
 			}
@@ -67,7 +77,6 @@ bool Player::ProcessKey(sf::Keyboard::Key key) {
 		return true;
 	}
 
-		
 	if (focusedView_ != 0) {
 		if (focusedView_->IsRoadSelected()){
 			Road* current_road = focusedView_->GetSelectedRoad()->GetRoad();
@@ -77,12 +86,15 @@ bool Player::ProcessKey(sf::Keyboard::Key key) {
 					current_city->SendCrew(5, current_road);
 				}
 				if (controls_[key] == TRADE_LOW && current_road->GetState() == TRADE){
+					std::cerr << "tr low" << std::endl;
 					current_city->SendCrew(5, current_road);
 				}
 				if (controls_[key] == TRADE_HIGH && current_road->GetState() == TRADE){
+					std::cerr << "tr high" << std::endl;
 					current_city->SendCrew(10, current_road);
 				}
 				if (controls_[key] == DECLARE_WAR && current_road->GetState() == TRADE){
+					std::cerr << "war decl" << std::endl;
 					current_road->InitiateWar();
 				}
 				if (controls_[key] == COMBAT_LOW && current_road->GetState() == WAR){
@@ -100,8 +112,8 @@ bool Player::ProcessKey(sf::Keyboard::Key key) {
 
 void Player::FocusOn(NodeView* view) {
 	if (focusedView_) {
-		focusedView_->SetFocused(false);
+		focusedView_->Deselect(id_);
 	}
 	focusedView_ = view;
-	focusedView_->SetFocused(true);
+	focusedView_->Select(id_);
 }

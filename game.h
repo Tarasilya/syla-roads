@@ -13,6 +13,7 @@ class GameConfig;
 
 class Game {
 private:
+	int id_;
 	Painter* painter_;
 	Map* map_;
 	double total_time_;
@@ -31,5 +32,5 @@ public:
 	void ProcessKey(sf::Keyboard::Key key);
 	void Tick(double dt);
 	const std::vector<Node*>& GetNodes() const;
-	std::vector<int> GetScores();
+	std::vector<double> GetScores();
 };

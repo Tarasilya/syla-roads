@@ -21,15 +21,6 @@ void City::AddRoad(Road* road) {
     roads_.push_back(road);     
 }
 
-City::operator std::string() const
-{
-    std::stringstream ss;
-    ss << "City index: " << index_ << "\nSyla reserve: " << syla_reserve_ << "\nWall :" <<  wall_ << "\n";
-    return ss.str();
-}
-
-
-
 void City::Tick(double tick_time) {
 
 }

@@ -27,9 +27,9 @@ Road::Road(std::vector<City*> cities)
     state_ = CONSTRUCTION;
     syla_influx_.assign(2, 0);
     completeness_.assign(2, 0);
-    speed_ = 0.005;
-    cost_ = 0.1;
-    trade_profit_ = 1;
+    speed_ = 0.5;
+    cost_ = 5;
+    trade_profit_ = 1.1;
 }
 
 
@@ -200,6 +200,7 @@ void Road::TickWar(double tick_time)
 	}
 
 
+    std::cerr << "balls: " << cities_connected_[0]->GetWall() << " " << cities_connected_[1]->GetWall() << std::endl;
 	for (int i = 0; i < 2; i++)
 	{
         if (contingents_[i].size())
@@ -228,6 +229,7 @@ void Road::TickWar(double tick_time)
                 cities_connected_[!i]->DamageWall(tick_time*(front_crew[i]->GetThickness() - front_crew[1-i]->GetThickness() ));
                 if (cities_connected_[!i]->GetWall() <= 0)
                 {
+                    std::cerr << "haha captured" << std::endl;
                     cities_connected_[!i]->ChangeOwner(cities_connected_[i]->GetOwner());
                     cities_connected_[!i]->ResetCapture();
                     ResetToTrade();

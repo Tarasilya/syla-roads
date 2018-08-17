@@ -5,6 +5,7 @@
 #include "road.h"
 
 #include <functional>
+#include <set>
 
 class RoadView;
 
@@ -19,7 +20,7 @@ private:
 protected:
 	Game* game_;
 	Node* node_;
-	bool focused_;
+	std::set<int> selected_by_;
 
 public:
 	NodeView(Game* game, Node* node);
@@ -31,5 +32,6 @@ public:
 	virtual void RoadSelect();
 	virtual bool IsRoadSelected();
 	virtual RoadView* GetSelectedRoad();
-	void SetFocused(bool focused);
+	void Select(int player_id);
+	void Deselect(int player_id);
 };
