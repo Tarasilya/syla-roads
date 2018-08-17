@@ -110,7 +110,7 @@ void Road::TickBuild(double tick_time)
         double syla_spending = tick_time * syla_influx_[i];
         if (cities_connected_[i]->LoseSyla(syla_spending))
         {
-            completeness_[i] += syla_spending * speed_ma / cost_;
+            completeness_[i] += syla_spending * speed_ / cost_;
         }
     }
     if (completeness_[0] + completeness_[1] > 1)
