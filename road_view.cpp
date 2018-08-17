@@ -53,6 +53,7 @@ void RoadView::Draw(Painter* painter) const {
         y[0] = road_->GetCities()[0]->y();
         x[1] = road_->GetCities()[1]->x();
         y[1] = road_->GetCities()[1]->y();
+        painter->Draw({x[0], y[0], x[1], y[1], BUILT_ROAD, ROAD_THICKNESS});
         for (int i = 0; i < 2; i++)
         {
             City* city = road_->GetCities()[i];

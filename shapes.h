@@ -6,6 +6,10 @@ struct Color {
 	int r;
 	int g;
 	int b;
+	int a;
+	Color();
+	Color(int r, int g, int b);
+	Color(int r, int g, int b, int a);
 };
 
 struct Rectangle {

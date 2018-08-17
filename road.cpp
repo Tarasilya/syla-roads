@@ -38,6 +38,7 @@ std::vector<std::deque<Crew*>> Road::GetContingents()
 {
     return contingents_;
 }
+
 void Road::Tick(double tick_time) {
     if (state_ == CONSTRUCTION)
     {
