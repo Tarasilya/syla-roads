@@ -87,7 +87,7 @@ void Painter::Draw(const Text& text) {
 	draw_text.setFont(font_);
 	draw_text.setCharacterSize(100);
 	draw_text.setPosition(sf::Vector2f(x, y));
-	draw_text.setFillColor(sf::Color::White);
+	draw_text.setColor(sf::Color::White);
 	window_->draw(draw_text);
 }
 

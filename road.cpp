@@ -27,7 +27,7 @@ Road::Road(std::vector<City*> cities)
     state_ = CONSTRUCTION;
     syla_influx_.assign(2, 0);
     completeness_.assign(2, 0);
-    speed_ = 10;
+    speed_ = 0.005;
     cost_ = 0.1;
     trade_profit_ = 1;
 }
@@ -110,7 +110,7 @@ void Road::TickBuild(double tick_time)
         double syla_spending = tick_time * syla_influx_[i];
         if (cities_connected_[i]->LoseSyla(syla_spending))
         {
-            completeness_[i] += tick_time * syla_influx_[i] / cost_;
+            completeness_[i] += syla_spending * speed_ma / cost_;
         }
     }
     if (completeness_[0] + completeness_[1] > 1)
@@ -123,6 +123,8 @@ void Road::ResetToTrade()
 {
     // By default, road state resets to trade after completion
     // with zero contingents on both sides
+    completeness_[0] = std::min(1.0, completeness_[0]);
+    completeness_[1] = 1 - completeness_[0];
     state_ = TRADE;
     syla_influx_[0] = 0;
     syla_influx_[1] = 0;
@@ -212,10 +214,10 @@ void Road::TickWar(double tick_time)
             }
             if (front_crew[i]->GetEndPercentage() >= 1)
             {
-                cities_connected_[!i]->DamageWall(tick_time*(front_crew[i]->GetThickness() - front_crew[1-i]->GetThickness() ));
-                if (cities_connected[!i]->GetWall() <= 0)
+                cities_connected_[1-i]->DamageWall(tick_time*(front_crew[i]->GetThickness() - front_crew[1-i]->GetThickness() ));
+                if (cities_connected_[1-i]->GetWall() <= 0)
                 {
-                    cities_connected_[!i]->ChangeOwner(cities_connected_[i]->GetOwner());
+                    cities_connected_[1-i]->ChangeOwner(cities_connected_[i]->GetOwner());
                 }
             }
         }
@@ -231,4 +233,8 @@ ObjectView* Road::GetView(Game* game) {
 
 const std::vector<City*>& Road::GetCities() {
 	return cities_connected_;
+}
+
+double Road::GetCompleteness(int index) {
+    return completeness_[index];
 }

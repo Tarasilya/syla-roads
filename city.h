@@ -11,13 +11,13 @@ class City : public Node
 {
 private:
     int index_;
-    Player* player_;
     std::vector<Road*> roads_;
     double syla_reserve_;
     double syla_capacity_;
     double wall_;
 
 public:
+    Player* player_;
     City(double x_coord, double y_coord, int index);
 
     void SendCrew(double syla_rate, Road* target_road);

@@ -11,7 +11,6 @@ private:
     double thickness_; // kon
     double start_percentage_;
     double end_percentage_;
-    int position; // kon
     Player* entity_;
 public:
     Crew(double thickness);

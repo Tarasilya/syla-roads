@@ -48,6 +48,7 @@ public:
     RoadState GetState();
     const std::vector<City*>& GetCities();
     ObjectView* GetView(Game* game);
+    double GetCompleteness(int index);
 };
 
 

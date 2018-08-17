@@ -17,6 +17,10 @@ Game::Game(Painter* painter, GameConfig* config) {
 	for (int i = 0; i < 2; i++) {
 		players_.push_back(new Player(config->GetControls(i), (NodeView*) GetNodes()[0]->GetView(this)));
 	}
+	for (auto node: map_->GetNodes()) {
+		City* city = (City*) node;
+		city->player_ = players_[0];
+	}
 }
 
 void Game::InitMap() {

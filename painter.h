@@ -8,6 +8,7 @@
 
 const Color ROAD_COLOR = {200, 200, 200};
 const Color SELECTED_ROAD_COLOR = {0, 255, 0};
+const Color BUILT_ROAD = {0xE9, 0x1E, 0x63}; 
 
 class Painter {
 private:

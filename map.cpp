@@ -42,7 +42,6 @@ const std::vector<Node*>& Map::GetNodes() {
 }
 
 Map::Map(std::string filename) {
-	std::cerr << "constructing map from " << filename << std::endl;
 	filename_ = filename;
 	ReadObjects();
 }
@@ -55,9 +54,7 @@ void Map::ReadObjects() {
 
 	for (int i = 0; i < count; i++) {
 		ReadObject(in);
-		std::cerr << "line " << i << std::endl;
 	}
-	std::cerr << "ReadObjects finished" << std::endl;
 }
 
 void Map::ReadObject(std::ifstream& in) {

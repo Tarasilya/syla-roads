@@ -2,6 +2,7 @@
 #include "painter.h"
 #include "city.h"
 #include "road_view.h"
+#include "sizes.h"
 
 #include <iostream>
 #include <algorithm>
@@ -18,7 +19,7 @@ RoadView* CityView::GetSelectedRoad()
 void CityView::Draw(Painter* painter) const {
     Color city_color = {255, 255 * focused_, 0};
     City* city = (City*) node_;
-    Circle city_image = {city->x(), city->y(), 0.1, city_color};
+    Circle city_image = {city->x(), city->y(), CITY_RADIUS, city_color};
     painter->Draw(city_image);
     if (focused_) {
     	std::stringstream ss;

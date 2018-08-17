@@ -2,6 +2,9 @@
 #include "painter.h"
 #include "road.h"
 #include "city.h"
+#include "sizes.h"
+
+#include <cmath>
 
 RoadView::RoadView(Road* road) : road_(road), selected_cities_(2) {}
 
@@ -9,25 +12,36 @@ const double THICKNESS = 0.03;
 
 void RoadView::Draw(Painter* painter) const {
     Color road_color = ROAD_COLOR;
-    double x1 = road_->GetCities()[0]->x();
-    double y1 = road_->GetCities()[0]->y();
-    double x4 = road_->GetCities()[1]->x();
-    double y4 = road_->GetCities()[1]->y();
-    double dx = (x4 - x1) / 3;
-    double dy = (y4 - y1) / 3;
-    double x2 = x1 + dx;
-    double y2 = y1 + dy;
-    double x3 = x2 + dx;
-    double y3 = y2 + dy;
-    Color color0 = selected_cities_[0] ? SELECTED_ROAD_COLOR : ROAD_COLOR;
-    Color color1 = selected_cities_[1] ? SELECTED_ROAD_COLOR : ROAD_COLOR;
-    Line road_image_0 = {x1, y1, x2, y2, color0, THICKNESS};
-    Line road_image_1 = {x3, y3, x4, y4, color1, THICKNESS};
-    Line road_image_mid = {x2, y2, x3, y3, ROAD_COLOR, THICKNESS};
+    std::vector<double> x(6);
+    std::vector<double> y(6);
+    x[0] = road_->GetCities()[0]->x();
+    y[0] = road_->GetCities()[0]->y();
+    x[5] = road_->GetCities()[1]->x();
+    y[5] = road_->GetCities()[1]->y();
+    double dx = (x[5] - x[0]);
+    double dy = (y[5] - y[0]);
+    double len = sqrt(dx*dx + dy*dy);
+    x[1] = x[0] + dx * CITY_RADIUS / len;
+    y[1] = y[0] + dy * CITY_RADIUS / len;
+    x[4] = x[5] - dx * CITY_RADIUS / len;
+    y[4] = y[5] - dy * CITY_RADIUS / len;
+    dx = x[4] - x[1];
+    dy = y[4] - y[1];
+    len = sqrt(dx*dx + dy*dy);
+    x[2] = x[1] + dx * road_->GetCompleteness(0);
+    y[2] = y[1] + dy * road_->GetCompleteness(0);
+    x[3] = x[4] - dx * road_->GetCompleteness(1);
+    y[3] = y[4] - dy * road_->GetCompleteness(1);
+    std::vector<Color> colors(6);
+    colors[0] = selected_cities_[0] ? SELECTED_ROAD_COLOR : ROAD_COLOR;
+    colors[1] = BUILT_ROAD;
+    colors[2] = ROAD_COLOR;
+    colors[3] = BUILT_ROAD;
+    colors[4] = selected_cities_[1] ? SELECTED_ROAD_COLOR : ROAD_COLOR;
 
-    painter->Draw(road_image_0);	
-    painter->Draw(road_image_1);	
-    painter->Draw(road_image_mid);	
+    for (int i = 0; i < (int) x.size() - 1; i++) {
+        painter->Draw({x[i], y[i], x[i+1], y[i+1], colors[i], ROAD_THICKNESS});
+    }
 }
 
 void RoadView::SelectFromCity(int city_id) {
