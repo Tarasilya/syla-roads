@@ -12,26 +12,6 @@
 Map::Map() {
 }
 
-Map* Map::DefaultMap() {
-	Map* map = new Map();
-	map->nodes_.push_back(new City(-0.75, 0, 0));
-	map->nodes_.push_back(new City(-0.25, 0, 1));
-	map->nodes_.push_back(new City(0.25, 0, 2));
-	map->nodes_.push_back(new City(0.75, 0, 3));
-	map->nodes_.push_back(new City(0, -0.5, 4));
-	map->nodes_.push_back(new City(0, 0.5, 5));
-	for (auto node: map->nodes_) {
-		map->objects_.push_back(node);
-	}
-	map->objects_.push_back(new Road({(City*) map->nodes_[0], (City*) map->nodes_[1]}));
-	map->objects_.push_back(new Road({(City*) map->nodes_[1], (City*) map->nodes_[4]}));
-	map->objects_.push_back(new Road({(City*) map->nodes_[1], (City*) map->nodes_[2]}));
-	map->objects_.push_back(new Road({(City*) map->nodes_[1], (City*) map->nodes_[5]}));
-	map->objects_.push_back(new Road({(City*) map->nodes_[4], (City*) map->nodes_[2]}));
-	map->objects_.push_back(new Road({(City*) map->nodes_[3], (City*) map->nodes_[5]}));
-
-	return map;
-}
 
 const std::vector<GameObject*>& Map::GetObjects() {
 	return objects_;
@@ -62,9 +42,10 @@ void Map::ReadObject(std::ifstream& in) {
 	in >> type;
 	if (type == 0) {
 		double x, y;
-		in >> x >> y;
+		int player_id;
+		in >> x >> y >> player_id;
 		std::cerr << "read city " << x << " " << y << std::endl;
-		City* city = new City(x, y, objects_.size());
+		City* city = new City(x, y, objects_.size(), player_id);
 		nodes_.push_back(city);
 		objects_.push_back(city);
 	}

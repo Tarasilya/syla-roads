@@ -8,14 +8,17 @@
 #include <sstream>
 #include <iostream>
 
-City::City(double x_coord, double y_coord, int index) :
-    index_(index), syla_reserve_(1000), syla_capacity_(1000), wall_(100)
+City::City(double x_coord, double y_coord, int index, int player_id) :
+    index_(index), syla_reserve_(1000), syla_capacity_(1000), wall_(100), player_id_(player_id)
 {
     x_ = x_coord;
     y_ = y_coord;
     view_ = 0;
 }
 
+int City::GetPlayerId() {
+    return player_id_;
+}
 
 void City::AddRoad(Road* road) {
     roads_.push_back(road);     

@@ -20,7 +20,10 @@ Game::Game(Painter* painter, GameConfig* config) {
 	}
 	for (auto node: map_->GetNodes()) {
 		City* city = (City*) node;
-		city->ChangeOwner(players_[rand() % 2]);
+		int pid = city->GetPlayerId();
+		if (pid != -1) {
+			city->ChangeOwner(players_[pid]);
+		}
 	}
 }
 

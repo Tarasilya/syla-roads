@@ -20,5 +20,4 @@ public:
 	Map(std::string filename);
 	const std::vector<GameObject*>& GetObjects();
 	const std::vector<Node*>& GetNodes();
-	static Map* DefaultMap();
 };

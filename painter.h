@@ -9,9 +9,9 @@
 const Color ROAD_COLOR = {182, 180, 152};
 const Color SELECTED_ROAD_COLOR = {17, 101, 8};
 const Color BUILT_ROAD_COLOR =  {222, 212, 73};
-const Color WAR_ROAD_COLOR =  {222, 73, 73};
-const Color PLAYER_ONE_COLOR = {120, 157, 247, 127};
-const Color PLAYER_TWO_COLOR = {225, 91, 54, 127 };
+const Color WAR_ROAD_COLOR =  {250, 250, 250};
+const Color PLAYER_ONE_COLOR = {105, 140, 230, 127};
+const Color PLAYER_TWO_COLOR = {210, 80, 40, 127 };
 const std::vector<Color> PLAYER_COLORS = {PLAYER_ONE_COLOR, PLAYER_TWO_COLOR};
 const Color SELECTION_COLORS [] = {{24, 84, 89}, {255, 37, 42}};
 const Color CITY_COLORS [] = {{82, 194, 228}, {202, 27, 93}};

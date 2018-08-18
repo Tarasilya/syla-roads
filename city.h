@@ -10,6 +10,7 @@ class Road;
 class City : public Node
 {
 private:
+    int player_id_;
     int index_;
     std::vector<Road*> roads_;
     double syla_reserve_;
@@ -17,7 +18,7 @@ private:
     double wall_;
 
 public:
-    City(double x_coord, double y_coord, int index);
+    City(double x_coord, double y_coord, int index, int player_id);
 
     void SendCrew(double syla_rate, Road* target_road);
     void DamageWall(double syla_rate);
@@ -35,5 +36,6 @@ public:
     double GetWall();
     virtual ObjectView* GetView(Game* game) override;
     const std::vector<Road*>& GetRoads();
+    int GetPlayerId();
 };
 
