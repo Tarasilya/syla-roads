@@ -210,7 +210,12 @@ void Road::TickWar(double tick_time)
         {
             double boundary_coordinate = (front_crew[i]->GetEndPercentage() + 1 - front_crew[1-i]->GetEndPercentage())/2;
             double advancement_speed = front_crew[i]->OffensiveSpeed(front_crew[1-i], speed_);
-
+            std::cerr << (front_crew[i]->GetEndPercentage() + front_crew[1-i]->GetEndPercentage()) << std::endl;
+            bool meeting = ((front_crew[i]->GetEndPercentage() + front_crew[1-i]->GetEndPercentage()) > (1 - 1e-2));
+            if (!meeting)
+            {
+                advancement_speed = speed_;
+            }
             if (!cities_connected_[i]->LoseSyla(contingents_[i].front()->GetThickness()*tick_time))
             {
                 AddCrew(i, 0);

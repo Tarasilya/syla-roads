@@ -28,7 +28,7 @@ void Controller::Run() {
 	    clock_t dt = clock() - t;
 	    t = clock();
 	    game_->Tick(dt * 1.0 / CLOCKS_PER_SEC);
-		window_->clear({0x55, 0x8B, 0x2F});
+		window_->clear({76, 180, 115});
 		game_->Draw();
 		window_->display();
 	}

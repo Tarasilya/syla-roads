@@ -19,7 +19,7 @@ Player::Player(std::map<sf::Keyboard::Key, Control> controls, NodeView* baseView
 }
 
 int Player::GetId() {
-	std::cerr << "id: " << id_ << std::endl;
+	//std::cerr << "id: " << id_ << std::endl;
 	return id_;
 }
 
@@ -85,23 +85,27 @@ bool Player::ProcessKey(sf::Keyboard::Key key) {
 				if (controls_[key] == BUILD && current_road->GetState() == CONSTRUCTION){
 					current_city->SendCrew(5, current_road);
 				}
-				if (controls_[key] == TRADE_LOW && current_road->GetState() == TRADE){
+				if (controls_[key] == ACT_LOW && current_road->GetState() == TRADE){
 					std::cerr << "tr low" << std::endl;
 					current_city->SendCrew(5, current_road);
 				}
-				if (controls_[key] == TRADE_HIGH && current_road->GetState() == TRADE){
-					std::cerr << "tr high" << std::endl;
+
+				if (controls_[key] == ACT_MEDIUM && current_road->GetState() != CONSTRUCTION){
 					current_city->SendCrew(10, current_road);
+				}
+				if (controls_[key] == ACT_HIGH && current_road->GetState() == TRADE){
+					std::cerr << "tr high" << std::endl;
+					current_city->SendCrew(15, current_road);
 				}
 				if (controls_[key] == DECLARE_WAR && current_road->GetState() == TRADE){
 					std::cerr << "war decl" << std::endl;
 					current_road->InitiateWar();
 				}
-				if (controls_[key] == COMBAT_LOW && current_road->GetState() == WAR){
+				if (controls_[key] == ACT_LOW && current_road->GetState() == WAR){
 					current_city->SendCrew(5, current_road);
 				}
-				if (controls_[key] == COMBAT_HIGH && current_road->GetState() == WAR){
-					current_city->SendCrew(10, current_road);
+				if (controls_[key] == ACT_HIGH && current_road->GetState() == WAR){
+					current_city->SendCrew(15, current_road);
 				}
 			}
 		}

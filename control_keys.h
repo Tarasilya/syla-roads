@@ -1,6 +1,6 @@
 #pragma once
 
-const int NUMBER_OF_CONTROLS = 12;
+const int NUMBER_OF_CONTROLS = 11;
 
 enum Control {
 	NOTHING = 0,
@@ -12,9 +12,8 @@ enum Control {
 	ROAD_SELECT,
 
 	BUILD,
-	TRADE_LOW,
-	TRADE_HIGH,
+	ACT_LOW,
+	ACT_MEDIUM,
+	ACT_HIGH,
 	DECLARE_WAR,
-	COMBAT_LOW,
-	COMBAT_HIGH,
 };

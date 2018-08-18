@@ -33,5 +33,5 @@ Circle::Circle(double x_, double y_, double r_, Color color_, double outline_r_,
 
 
 sf::Color Color::ToSf() const {
-	return sf::Color(r, g, b);
+	return sf::Color(r, g, b, a);
 }

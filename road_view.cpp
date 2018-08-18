@@ -11,7 +11,7 @@ RoadView::RoadView(Road* road) : road_(road), selected_cities_(2) {}
 const double THICKNESS = 0.03;
 
 void RoadView::Draw(Painter* painter) const {
-    if (road_->GetState() != WAR)
+    if (road_->GetState() == CONSTRUCTION)
     {
         Color road_color = ROAD_COLOR;
         std::vector<double> x(6);
@@ -47,13 +47,24 @@ void RoadView::Draw(Painter* painter) const {
     }
     else
     {
-        std::vector<double> x(2);
-        std::vector<double> y(2);
-        x[0] = road_->GetCities()[0]->x();
-        y[0] = road_->GetCities()[0]->y();
-        x[1] = road_->GetCities()[1]->x();
-        y[1] = road_->GetCities()[1]->y();
+        std::vector<double> x(4);
+        std::vector<double> y(4);
+        x[2] = road_->GetCities()[0]->x();
+        y[2] = road_->GetCities()[0]->y();
+        x[3] = road_->GetCities()[1]->x();
+        y[3] = road_->GetCities()[1]->y();
+        double dx = (x[3] - x[2]);
+        double dy = (y[3] - y[2]);
+        double len = sqrt(dx*dx + dy*dy);
+        x[0] = x[2] + dx * CITY_RADIUS / len;
+        y[0] = y[2] + dy * CITY_RADIUS / len;
+        x[1] = x[3] - dx * CITY_RADIUS / len;
+        y[1] = y[3] - dy * CITY_RADIUS / len;
         painter->Draw({x[0], y[0], x[1], y[1], BUILT_ROAD, ROAD_THICKNESS});
+        Color end_color_one = selected_cities_[0] ? SELECTED_ROAD_COLOR : ROAD_COLOR;
+        Color end_color_two = selected_cities_[1] ? SELECTED_ROAD_COLOR : ROAD_COLOR;
+        painter->Draw({x[0], y[0], x[2], y[2], end_color_one, ROAD_THICKNESS});
+        painter->Draw({x[1], y[1], x[3], y[3], end_color_two, ROAD_THICKNESS});
         for (int i = 0; i < 2; i++)
         {
             City* city = road_->GetCities()[i];

@@ -26,7 +26,7 @@ void Painter::Draw(const Rectangle& rect) {
 	sf::ConvexShape draw_rect;
 
 	draw_rect.setPointCount(4);
-	draw_rect.setFillColor(sf::Color(rect.color.r, rect.color.g, rect.color.b));
+	draw_rect.setFillColor(rect.color.ToSf());
 	draw_rect.setPoint(0, sf::Vector2f(x1, y1));
 	draw_rect.setPoint(1, sf::Vector2f(x1, y2));
 	draw_rect.setPoint(2, sf::Vector2f(x2, y2));
@@ -43,7 +43,7 @@ void Painter::Draw(const Circle& circle) {
 	sf::CircleShape draw_circle (r);
 
 	draw_circle.setPosition(x - r, y - r);
-	draw_circle.setFillColor(sf::Color(circle.color.r, circle.color.g, circle.color.b));
+	draw_circle.setFillColor(circle.color.ToSf());
 	draw_circle.setOutlineThickness(outline_r);
 	draw_circle.setOutlineColor(circle.outline_color.ToSf());
 
@@ -74,7 +74,7 @@ void Painter::Draw(const Line& line) {
 
 	sf::ConvexShape draw_rect;
 	draw_rect.setPointCount(4);
-	draw_rect.setFillColor(sf::Color(line.color.r, line.color.g, line.color.b));
+	draw_rect.setFillColor(line.color.ToSf());
 	draw_rect.setPoint(0, sf::Vector2f(x1, y1));
 	draw_rect.setPoint(1, sf::Vector2f(x2, y2));
 	draw_rect.setPoint(2, sf::Vector2f(x3, y3));
@@ -93,6 +93,8 @@ void Painter::Draw(const Text& text) {
 	draw_text.setColor(sf::Color::White);
 	window_->draw(draw_text);
 }
+
+
 
 int Painter::Width() {
 	return display_width_;

@@ -49,3 +49,4 @@ struct Text {
 	double y;
 	std::string text;
 };
+
