@@ -36,9 +36,9 @@ void RoadView::Draw(Painter* painter) const {
         y[3] = y[4] - dy * road_->GetCompleteness(1);
         std::vector<Color> colors(6);
         colors[0] = selected_cities_[0] ? SELECTED_ROAD_COLOR : ROAD_COLOR;
-        colors[1] = BUILT_ROAD;
+        colors[1] = BUILT_ROAD_COLOR;
         colors[2] = ROAD_COLOR;
-        colors[3] = BUILT_ROAD;
+        colors[3] = BUILT_ROAD_COLOR;
         colors[4] = selected_cities_[1] ? SELECTED_ROAD_COLOR : ROAD_COLOR;
 
         for (int i = 0; i < (int) x.size() - 1; i++) {
@@ -64,7 +64,8 @@ void RoadView::Draw(Painter* painter) const {
         y[0] = y[2] + dy * CITY_RADIUS / len;
         x[1] = x[3] - dx * CITY_RADIUS / len;
         y[1] = y[3] - dy * CITY_RADIUS / len;
-        painter->Draw({x[0], y[0], x[1], y[1], BUILT_ROAD, ROAD_THICKNESS});
+        Color road_color = road_->GetState() == WAR ? WAR_ROAD_COLOR : BUILT_ROAD_COLOR;
+        painter->Draw({x[0], y[0], x[1], y[1], road_color, ROAD_THICKNESS});
         Color end_color_one = selected_cities_[0] ? SELECTED_ROAD_COLOR : ROAD_COLOR;
         Color end_color_two = selected_cities_[1] ? SELECTED_ROAD_COLOR : ROAD_COLOR;
         painter->Draw({x[0], y[0], x[2], y[2], end_color_one, ROAD_THICKNESS});
@@ -83,7 +84,7 @@ void RoadView::Draw(Painter* painter) const {
                 crew_y[0] = y[i] * (1 - start_p) + y[!i] * start_p;
                 crew_x[1] = x[i] * (1 - end_p) + x[!i] * end_p;
                 crew_y[1] = y[i] * (1 - end_p) + y[!i] * end_p;
-                painter->Draw({crew_x[0], crew_y[0], crew_x[1], crew_y[1], PLAYER_COLORS[i], crew->GetThickness() / 600});
+                painter->Draw({crew_x[0], crew_y[0], crew_x[1], crew_y[1], PLAYER_COLORS[i], crew->GetThickness() / 800});
             }
         }
     }

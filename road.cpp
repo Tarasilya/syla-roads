@@ -230,7 +230,7 @@ void Road::TickWar(double tick_time)
             {
                 contingents_[i].pop_back();
             }
-            if (front_crew[i]->GetEndPercentage() >= 1)
+            if (front_crew[i]->GetEndPercentage() >= 1-1e-2)
             {
 
                 cities_connected_[!i]->DamageWall(tick_time*(front_crew[i]->GetThickness() - front_crew[1-i]->GetThickness() ));

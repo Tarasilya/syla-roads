@@ -8,7 +8,8 @@
 
 const Color ROAD_COLOR = {182, 180, 152};
 const Color SELECTED_ROAD_COLOR = {17, 101, 8};
-const Color BUILT_ROAD =  {222, 212, 73};
+const Color BUILT_ROAD_COLOR =  {222, 212, 73};
+const Color WAR_ROAD_COLOR =  {222, 73, 73};
 const Color PLAYER_ONE_COLOR = {120, 157, 247, 127};
 const Color PLAYER_TWO_COLOR = {225, 91, 54, 127 };
 const std::vector<Color> PLAYER_COLORS = {PLAYER_ONE_COLOR, PLAYER_TWO_COLOR};

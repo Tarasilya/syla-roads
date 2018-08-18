@@ -97,7 +97,8 @@ bool Player::ProcessKey(sf::Keyboard::Key key) {
 					std::cerr << "tr high" << std::endl;
 					current_city->SendCrew(15, current_road);
 				}
-				if (controls_[key] == DECLARE_WAR && current_road->GetState() == TRADE){
+				if (controls_[key] == DECLARE_WAR && current_road->GetState() == TRADE 
+					&& current_road->GetCities()[0]->GetOwner() != current_road->GetCities()[1]->GetOwner()){
 					std::cerr << "war decl" << std::endl;
 					current_road->InitiateWar();
 				}
