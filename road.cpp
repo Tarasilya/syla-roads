@@ -203,7 +203,6 @@ void Road::TickWar(double tick_time)
 	}
 
 
-    std::cerr << "balls: " << cities_connected_[0]->GetWall() << " " << cities_connected_[1]->GetWall() << std::endl;
 	for (int i = 0; i < 2; i++)
 	{
         if (contingents_[i].size())

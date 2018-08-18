@@ -31,7 +31,6 @@ double Crew::GetCumulativeSyla()
 
 bool Crew::MoveForward(double tick_time, double start_speed, double end_speed, double boundary_coordinate, int crew_index)
 {
-	printf("CREW: %.3f %.3f\n", start_percentage_, end_percentage_);
 	bool still_present = 1;
 	if (start_percentage_ != 0 || crew_index)
 	{

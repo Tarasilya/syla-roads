@@ -62,7 +62,6 @@ double City::GetSyla()
 
 void City::SendCrew(double syla_rate, Road* target_road)
 {
-    std::cout << "SendCrew: " << syla_rate << "\n";
 	target_road->SetSylaInflux(index_, syla_rate);
 }
 

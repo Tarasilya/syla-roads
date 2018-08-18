@@ -14,12 +14,12 @@ Player::Player(std::map<sf::Keyboard::Key, Control> controls, NodeView* baseView
 	: baseView_(baseView), 
 	focusedView_(0), 
 	controls_(controls),
-	id_(id) {
+	id_(id) 
+{
 		std::cerr << "cr pl " << id_ << std::endl;
 }
 
 int Player::GetId() {
-	std::cerr << "id: " << id_ << std::endl;
 	return id_;
 }
 
