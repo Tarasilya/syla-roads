@@ -6,14 +6,14 @@
 
 #include <utility>
 
-const Color ROAD_COLOR = {222, 212, 73};
-const Color SELECTED_ROAD_COLOR = {226, 220, 25};
-const Color BUILT_ROAD = {182, 180, 152}; 
+const Color ROAD_COLOR = {182, 180, 152};
+const Color SELECTED_ROAD_COLOR = {17, 101, 8};
+const Color BUILT_ROAD =  {222, 212, 73};
 const Color PLAYER_ONE_COLOR = {120, 157, 247, 127};
 const Color PLAYER_TWO_COLOR = {225, 91, 54, 127 };
 const std::vector<Color> PLAYER_COLORS = {PLAYER_ONE_COLOR, PLAYER_TWO_COLOR};
-const Color SELECTION_COLORS [] = {{24, 84, 89}, {0x21, 0x96, 0xF3}};
-const Color CITY_COLORS [] = {{0xF0, 0x62, 0x92}, {0x81, 0xD4, 0xFA}};
+const Color SELECTION_COLORS [] = {{24, 84, 89}, {255, 37, 42}};
+const Color CITY_COLORS [] = {{82, 194, 228}, {202, 27, 93}};
 const Color NEUTRAL_CITY_COLOR = {0x21, 0x21, 0x21};
 
 class Painter {

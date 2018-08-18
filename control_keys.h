@@ -1,6 +1,8 @@
 #pragma once
 
-const int NUMBER_OF_CONTROLS = 11;
+#include <SFML/Window.hpp>
+
+#include <string>
 
 enum Control {
 	NOTHING = 0,
@@ -17,3 +19,5 @@ enum Control {
 	ACT_HIGH,
 	DECLARE_WAR,
 };
+
+sf::Keyboard::Key ToSfKey(std::string);

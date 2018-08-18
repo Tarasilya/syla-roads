@@ -42,7 +42,11 @@ void RoadView::Draw(Painter* painter) const {
         colors[4] = selected_cities_[1] ? SELECTED_ROAD_COLOR : ROAD_COLOR;
 
         for (int i = 0; i < (int) x.size() - 1; i++) {
-            painter->Draw({x[i], y[i], x[i+1], y[i+1], colors[i], ROAD_THICKNESS});
+            double thickness = ROAD_THICKNESS;
+            if (i == 2){
+                thickness = UNBUILT_THICKNESS;
+            }
+            painter->Draw({x[i], y[i], x[i+1], y[i+1], colors[i], thickness});
         }
     }
     else

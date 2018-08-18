@@ -25,7 +25,7 @@ Game::Game(Painter* painter, GameConfig* config) {
 }
 
 void Game::InitMap() {
-	map_ = new Map("def.map");
+	map_ = new Map("spizdy.map");
 
 	total_time_ = 0;
 	seconds_ = 0;
