@@ -24,7 +24,7 @@ Circle::Circle()
 {}
 
 Circle::Circle(double x_, double y_, double r_, Color color_) 
-	: x(x_), y(y_), r(r_), color(color_)
+	: x(x_), y(y_), r(r_), color(color_), outline_r(0)
 {}
 
 Circle::Circle(double x_, double y_, double r_, Color color_, double outline_r_, Color outline_color_) 
