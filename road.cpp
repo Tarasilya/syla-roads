@@ -184,64 +184,26 @@ double Road::CumulativeArmy(int position)
     return result;
 }
 
-void Road::TickWar(double tick_time)
-{
+void Road::TickWar(double tick_time) {
 
+	std::vector<Crew*> front_crew = GetFrontCrew();
 
-	std::vector<Crew*> front_crew;
+	for (int i = 0; i < 2; i++) {
+        if (!contingents_[i].empty()) {
+            double boundary_coordinate = GetBoundary(i, front_crew);
+            
+            //std::cerr << (front_crew[i]->GetEndPercentage() + front_crew[1-i]->GetEndPercentage()) << std::endl;
+            
+            bool meeting = FrontCrewsMeet(front_crew);
 
-	for (int i = 0; i < 2; i++)
-	{
-        if (contingents_[i].size())
-        {
-            front_crew.push_back(contingents_[i][contingents_[i].size() - 1]);
-        }
-        else
-        {
-            front_crew.push_back(new Crew(syla_influx_[i]));
-        }
-	}
+            double advancement_speed = GetAdvancementSpeed(i, front_crew, meeting);
+            
+            PadEmptyCrews(i, tick_time);
 
+            MoveAndEliminateContingents(i, tick_time, boundary_coordinate, advancement_speed);
 
-	for (int i = 0; i < 2; i++)
-	{
-        if (contingents_[i].size())
-        {
-            double boundary_coordinate = (front_crew[i]->GetEndPercentage() + 1 - front_crew[1-i]->GetEndPercentage())/2;
-            double advancement_speed = front_crew[i]->OffensiveSpeed(front_crew[1-i], speed_);
-            std::cerr << (front_crew[i]->GetEndPercentage() + front_crew[1-i]->GetEndPercentage()) << std::endl;
-            bool meeting = ((front_crew[i]->GetEndPercentage() + front_crew[1-i]->GetEndPercentage()) > (1 - 1e-2));
-            if (!meeting)
-            {
-                advancement_speed = speed_;
-            }
-            if (!cities_connected_[i]->LoseSyla(contingents_[i].front()->GetThickness()*tick_time))
-            {
-                AddCrew(i, 0);
-            }
-            for (int j = 0; j < (int) contingents_[i].size() - 1; j++)
-            {
-                if(!contingents_[i][j]->MoveForward(tick_time, speed_, speed_, boundary_coordinate, j))
-                {
-                    contingents_[i].erase(contingents_[i].begin() + j);
-                }
-            }
-            if (!contingents_[i].back()->MoveForward(tick_time, speed_, advancement_speed, boundary_coordinate, (int) contingents_[i].size() - 1 ))
-            {
-                contingents_[i].pop_back();
-            }
-            if (front_crew[i]->GetEndPercentage() >= 1-1e-2)
-            {
+            Siege(i, front_crew, tick_time, 1e-2, advancement_speed);
 
-                cities_connected_[!i]->DamageWall(tick_time*(front_crew[i]->GetThickness() - front_crew[1-i]->GetThickness() ));
-                if (cities_connected_[!i]->GetWall() <= 0)
-                {
-                    std::cerr << "haha captured" << std::endl;
-                    cities_connected_[!i]->ChangeOwner(cities_connected_[i]->GetOwner());
-                    cities_connected_[!i]->ResetCapture();
-                    ResetToTrade();
-                }
-            }
         }
 	}
 }
@@ -253,10 +215,74 @@ ObjectView* Road::GetView(Game* game) {
 	return view_;
 }
 
-const std::vector<City*>& Road::GetCities() {
+const std::vector<City*>& Road::GetCities() const{
 	return cities_connected_;
 }
 
 double Road::GetCompleteness(int index) {
     return completeness_[index];
+}
+
+std::vector<Crew*> Road::GetFrontCrew() const{
+	/*
+	Determines what crews are at the front of respective sides of the road
+	*/
+	std::vector<Crew*> front_crew;
+
+	for (int i = 0; i < 2; i++) {
+        if (contingents_[i].size()) {
+            front_crew.push_back(contingents_[i][contingents_[i].size() - 1]);
+        }
+        else {
+            front_crew.push_back(new Crew(syla_influx_[i]));
+        }
+    }
+    return front_crew;
+}
+
+
+bool Road::FrontCrewsMeet(const std::vector<Crew*>& front_crew){
+	return ((front_crew[0]->GetEndPercentage() + front_crew[1]->GetEndPercentage()) > (1 - 1e-2));
+}
+
+
+double Road::GetAdvancementSpeed(int i, std::vector<Crew*> front_crew, bool meeting){
+	if (!meeting){
+        return speed_;
+    }
+	return front_crew[i]->OffensiveSpeed(front_crew[1-i], speed_);
+}
+
+double Road::GetBoundary( int i, std::vector<Crew*> front_crew){
+	return (front_crew[i]->GetEndPercentage() + 1 - front_crew[1-i]->GetEndPercentage())/2;
+}
+
+void Road::PadEmptyCrews(int i, double tick_time){
+	if (!cities_connected_[i]->LoseSyla(contingents_[i].front()->GetThickness()*tick_time)){
+        AddCrew(i, 0);  
+    }
+}
+
+void Road::MoveAndEliminateContingents(int i, double tick_time, double boundary, double adv_speed){
+	for (int j = 0; j < (int) contingents_[i].size() - 1; j++) {
+        if(!contingents_[i][j]->MoveForward(tick_time, speed_, speed_, boundary, j)) {
+            contingents_[i].erase(contingents_[i].begin() + j);
+        }
+    }
+
+    if (!contingents_[i].back()->MoveForward(tick_time, speed_, adv_speed, boundary, (int) contingents_[i].size() - 1 )) {
+         contingents_[i].pop_back();
+    }
+}
+
+void Road::Siege(int i, std::vector<Crew*> front_crew, double tick_time, double close_enough, double adv_speed){
+	if (front_crew[i]->GetEndPercentage() >= 1-close_enough) {
+        cities_connected_[!i]->DamageWall(adv_speed * tick_time*(front_crew[i]->GetThickness() - front_crew[1-i]->GetThickness() ));
+        if (cities_connected_[!i]->GetWall() <= 0) {
+            std::cerr << "haha captured" << std::endl;
+            cities_connected_[!i]->ChangeOwner(cities_connected_[i]->GetOwner());
+            cities_connected_[!i]->ResetCapture();
+            ResetToTrade();
+        }
+    }
 }

@@ -8,6 +8,8 @@
 #include <sstream>
 #include <iostream>
 
+// Vynosim konstanty:
+
 City::City(double x_coord, double y_coord, int index, int player_id) :
     index_(index), syla_reserve_(1000), syla_capacity_(1000), wall_(100), player_id_(player_id)
 {
@@ -88,11 +90,11 @@ bool City::LoseSyla(double syla)
     if (syla <= syla_reserve_)
     {
         syla_reserve_ -= syla;
-        return 1;
+        return true;
     }
     else
     {
-        return 0;
+        return false;
     }
 }
 
