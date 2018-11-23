@@ -47,9 +47,18 @@ public:
     double CumulativeArmy(int position);
 
     RoadState GetState();
-    const std::vector<City*>& GetCities();
+    const std::vector<City*>& GetCities() const;
+    std::vector<Crew*> GetFrontCrew() const;
     ObjectView* GetView(Game* game);
     double GetCompleteness(int index);
+    bool FrontCrewsMeet(const std::vector<Crew*>& front_crew);
+    double GetAdvancementSpeed(int i, std::vector<Crew*> front_crew, bool meeting);
+    double GetBoundary(int i, std::vector<Crew*> front_crew);
+    void PadEmptyCrews(int i, double tick_time);
+	void MoveAndEliminateContingents(int i, double tick_time, double boundary, double adv_speed);
+	void Siege(int i, std::vector<Crew*> front_crew, double tick_time, double close_enough, double adv_speed);
+
+ 
 };
 
 
