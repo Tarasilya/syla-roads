@@ -269,7 +269,6 @@ void Road::MoveAndEliminateContingents(int i, double tick_time, double boundary,
             contingents_[i].erase(contingents_[i].begin() + j);
         }
     }
-
     if (!contingents_[i].back()->MoveForward(tick_time, speed_, adv_speed, boundary, (int) contingents_[i].size() - 1 )) {
          contingents_[i].pop_back();
     }
