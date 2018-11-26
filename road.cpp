@@ -27,7 +27,7 @@ Road::Road(std::vector<City*> cities)
     state_ = CONSTRUCTION;
     syla_influx_.assign(2, 0);
     completeness_.assign(2, 0);
-    speed_ = 0.5;
+    speed_ = 6;
     cost_ = 5;
     trade_profit_ = 1.1;
 }

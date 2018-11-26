@@ -84,7 +84,7 @@ void RoadView::Draw(Painter* painter) const {
                 crew_y[0] = y[i] * (1 - start_p) + y[!i] * start_p;
                 crew_x[1] = x[i] * (1 - end_p) + x[!i] * end_p;
                 crew_y[1] = y[i] * (1 - end_p) + y[!i] * end_p;
-                painter->Draw({crew_x[0], crew_y[0], crew_x[1], crew_y[1], PLAYER_COLORS[i], crew->GetThickness() / 800});
+                painter->Draw({crew_x[0], crew_y[0], crew_x[1], crew_y[1], PLAYER_COLORS[city->GetPlayerId()], crew->GetThickness() / 800});
             }
         }
     }

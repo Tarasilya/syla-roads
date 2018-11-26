@@ -71,6 +71,7 @@ void City::SendCrew(double syla_rate, Road* target_road)
 void City::ChangeOwner(Player* new_owner)
 {
     owner_ = new_owner;
+    player_id_ = new_owner->GetId();
 }
 
 void City::ResetCapture()
