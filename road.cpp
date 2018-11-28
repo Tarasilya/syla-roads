@@ -119,7 +119,6 @@ void Road::InitiateWar(){
     syla_influx_[0] = 0;
     syla_influx_[1] = 0;
     contingents_.assign(2, {});
-    std::cerr << contingents_[0].size();
 }
 
 void Road::TickTrade(double tick_time){
@@ -151,8 +150,6 @@ void Road::TickWar(double tick_time) {
 
 	for (int i = 0; i < 2; i++) {
         if (!contingents_[i].empty()) {
-            //std::cerr << (front_crew[i]->GetEndPercentage() + front_crew[1-i]->GetEndPercentage()) << std::endl;
-            
             double boundary_coordinate = GetBoundary(i, front_crew);
             
             bool meeting = FrontCrewsMeet(front_crew);
@@ -267,7 +264,6 @@ void Road::Siege(int i, std::vector<Crew*> front_crew, double tick_time, double 
 	if (front_crew[i]->GetEndPercentage() >= 1-close_enough) {
         cities_connected_[!i]->DamageWall(adv_speed * tick_time*(front_crew[i]->GetThickness() - front_crew[1-i]->GetThickness() ));
         if (cities_connected_[!i]->GetWall() <= 0) {
-            std::cerr << "haha captured" << std::endl;
             cities_connected_[!i]->ChangeOwner(cities_connected_[i]->GetOwner());
             cities_connected_[!i]->ResetCapture();
             ResetToTrade();

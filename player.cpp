@@ -16,7 +16,6 @@ Player::Player(std::map<sf::Keyboard::Key, Control> controls, NodeView* baseView
 	controls_(controls),
 	id_(id) 
 {
-		std::cerr << "cr pl " << id_ << std::endl;
 }
 
 int Player::GetId() {
@@ -70,7 +69,6 @@ bool Player::ProcessKey(sf::Keyboard::Key key) {
 		return true;
 	
 	case ROAD_SELECT:
-		std::cerr << "road selected" << std::endl;
 		if (focusedView_ != 0) {
 			focusedView_->RoadSelect();
 		}
@@ -86,7 +84,6 @@ bool Player::ProcessKey(sf::Keyboard::Key key) {
 					current_city->SendCrew(5, current_road);
 				}
 				if (controls_[key] == ACT_LOW && current_road->GetState() == TRADE){
-					std::cerr << "tr low" << std::endl;
 					current_city->SendCrew(5, current_road);
 				}
 
@@ -94,12 +91,10 @@ bool Player::ProcessKey(sf::Keyboard::Key key) {
 					current_city->SendCrew(10, current_road);
 				}
 				if (controls_[key] == ACT_HIGH && current_road->GetState() == TRADE){
-					std::cerr << "tr high" << std::endl;
 					current_city->SendCrew(15, current_road);
 				}
 				if (controls_[key] == DECLARE_WAR && current_road->GetState() == TRADE 
 					&& current_road->GetCities()[0]->GetOwner() != current_road->GetCities()[1]->GetOwner()){
-					std::cerr << "war decl" << std::endl;
 					current_road->InitiateWar();
 				}
 				if (controls_[key] == ACT_LOW && current_road->GetState() == WAR){
