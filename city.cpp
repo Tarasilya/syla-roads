@@ -11,7 +11,7 @@
 // Vynosim konstanty:
 
 City::City(double x_coord, double y_coord, int index, int player_id) :
-    index_(index), syla_reserve_(1000), syla_capacity_(1000), wall_(100), player_id_(player_id)
+    index_(index), syla_reserve_(200), syla_capacity_(200), wall_(100), player_id_(player_id)
 {
     x_ = x_coord;
     y_ = y_coord;
@@ -79,7 +79,7 @@ void City::ChangeOwner(Player* new_owner)
 void City::ResetCapture()
 {
     wall_ = 100;
-    syla_reserve_ = 500;
+    syla_reserve_ = 100;
     for (auto road: roads_) {
         road->ResetToTrade();
     }

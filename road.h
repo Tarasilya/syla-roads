@@ -48,7 +48,7 @@ public:
 
     RoadState GetState();
     const std::vector<City*>& GetCities() const;
-    std::vector<Crew*> GetFrontCrew() const;
+    std::vector<Crew*> GetFrontCrew(double tick_time) const;
     ObjectView* GetView(Game* game);
     double GetCompleteness(int index);
 

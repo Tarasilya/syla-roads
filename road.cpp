@@ -147,7 +147,7 @@ double Road::CumulativeArmy(int position)
 
 void Road::TickWar(double tick_time) {
 
-	std::vector<Crew*> front_crew = GetFrontCrew();
+	std::vector<Crew*> front_crew = GetFrontCrew(tick_time);
 
 	for (int i = 0; i < 2; i++) {
         if (!contingents_[i].empty()) {
@@ -212,7 +212,7 @@ void Road::MoveTraders(int i, double tick_time){
 
 // HELPER FUNCTIONS FOR TICKWAR
 
-std::vector<Crew*> Road::GetFrontCrew() const{
+std::vector<Crew*> Road::GetFrontCrew(double tick_time) const{
 	/*
 	Determines what crews are at the front of respective sides of the road
 	*/
@@ -223,7 +223,12 @@ std::vector<Crew*> Road::GetFrontCrew() const{
             front_crew.push_back(contingents_[i][contingents_[i].size() - 1]);
         }
         else {
-            front_crew.push_back(new Crew(syla_influx_[i]));
+        	if (cities_connected_[i]->LoseSyla(syla_influx_[i]*tick_time)) {
+				front_crew.push_back(new Crew(syla_influx_[i]));	
+        	}
+        	else {
+        		front_crew.push_back(new Crew(0));
+        	}
         }
     }
     return front_crew;
