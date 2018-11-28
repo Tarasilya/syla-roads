@@ -16,8 +16,7 @@ RoadState Road::GetState()
     return state_;
 }
 
-Road::Road(std::vector<City*> cities)
-{
+Road::Road(std::vector<City*> cities){
     cities[0]->AddRoad(this);
     cities[1]->AddRoad(this);
     contingents_.assign(2, {});
@@ -34,50 +33,40 @@ Road::Road(std::vector<City*> cities)
 
 
 
-std::vector<std::deque<Crew*>> Road::GetContingents()
-{
+std::vector<std::deque<Crew*>> Road::GetContingents(){
     return contingents_;
 }
 
 void Road::Tick(double tick_time) {
-    if (state_ == CONSTRUCTION)
-    {
+    if (state_ == CONSTRUCTION){
         TickBuild(tick_time);
     }
-    else if (state_  == TRADE)
-    {
+    else if (state_  == TRADE){
         TickTrade(tick_time);
     }
-    else if (state_ == WAR)
-    {
+    else if (state_ == WAR){
         TickWar(tick_time);
     }
 
 }
 
-double Road::CityExpense(int city_index)
-{
+double Road::CityExpense(int city_index){
     double expense;
     int position_ind = GetCityPositionInVectors(city_index);
     int num_crew = contingents_[position_ind].size();
-    if (num_crew > 0)
-    {
+    if (num_crew > 0){
         expense = contingents_[position_ind][0]->GetThickness();
     }
-    else
-    {
+    else{
         expense = 0;
     }
     return expense;
 }
 
-int Road::GetCityPositionInVectors(int city_index)
-{
+int Road::GetCityPositionInVectors(int city_index){
 	int position = -1;
-	for (int i = 0; i < 2; i++)
-	{
-		if (cities_indices_[i] == city_index)
-		{
+	for (int i = 0; i < 2; i++){
+		if (cities_indices_[i] == city_index){
 			position = i;
 		}
 	}
@@ -85,41 +74,33 @@ int Road::GetCityPositionInVectors(int city_index)
 }
 
 
-void Road::SetSylaInflux(int city_index, double syla_rate)
-{
+void Road::SetSylaInflux(int city_index, double syla_rate){
 	int city_position = GetCityPositionInVectors(city_index);
     std::cout << "SetSylaInflux: city_pos " << city_position << " syla " << syla_rate << "\n";
 	syla_influx_[city_position] = syla_rate;
-	if (state_ != CONSTRUCTION)
-	{
+	if (state_ != CONSTRUCTION){
         AddCrew(city_position, syla_rate);
     }
 }
 
-void Road::AddCrew(int position, double thickness)
-{
+void Road::AddCrew(int position, double thickness){
     Crew* new_crew = new Crew(thickness);
     contingents_[position].push_front(new_crew);
 }
 
-void Road::TickBuild(double tick_time)
-{
-    for (int i = 0; i < 2; i++)
-    {
+void Road::TickBuild(double tick_time){
+    for (int i = 0; i < 2; i++){
         double syla_spending = tick_time * syla_influx_[i];
-        if (cities_connected_[i]->LoseSyla(syla_spending))
-        {
+        if (cities_connected_[i]->LoseSyla(syla_spending)){
             completeness_[i] += syla_spending * speed_ / cost_;
         }
     }
-    if (completeness_[0] + completeness_[1] > 1)
-    {
+    if (completeness_[0] + completeness_[1] > 1){
         ResetToTrade();
     }
 }
 
-void Road::ResetToTrade()
-{
+void Road::ResetToTrade(){
     // By default, road state resets to trade after completion
     // with zero contingents on both sides
     if (completeness_[0] + completeness_[1] < 1 - 1e-9) {
@@ -130,12 +111,10 @@ void Road::ResetToTrade()
     state_ = TRADE;
     syla_influx_[0] = 0;
     syla_influx_[1] = 0;
-
-
 }
 
-void Road::InitiateWar()
-{
+void Road::InitiateWar(){
+	// Arbitrary constants
     state_ = WAR;
     syla_influx_[0] = 0;
     syla_influx_[1] = 0;
@@ -143,32 +122,15 @@ void Road::InitiateWar()
     std::cerr << contingents_[0].size();
 }
 
-void Road::TickTrade(double tick_time)
-{
-	for (int i = 0; i < 2; i++)
-	{
-        if  (contingents_[i].size())
-        {
-            if (contingents_[i].back()->GetEndPercentage() >= 1)
-            {
-                double profit = tick_time*trade_profit_ * contingents_[i].back()->GetThickness();
-                cities_connected_[i]->AcquireSyla(profit);
-            }
-            if (contingents_[i].front()->GetStartPercentage() <= 0)
-            {
-                double maintenance_cost = contingents_[i].front()->GetThickness()*tick_time;
-                if (!cities_connected_[i]->LoseSyla(maintenance_cost))
-                {
-                    AddCrew(i, 0);
-                }
-            }
-            for (int j = 0; j < (int) contingents_[i].size(); j++)
-            {
-                if ( !contingents_[i][j]->MoveForward(tick_time, speed_, speed_, 1, j) )
-                    {
-                        contingents_[i].erase(contingents_[i].begin() + j);
-                    }
-            }
+void Road::TickTrade(double tick_time){
+	for (int i = 0; i < 2; i++){
+        if  (contingents_[i].size()){
+
+        	UpdateCityProfit(i, tick_time);
+            
+            SendNewTraders(i, tick_time);
+
+            MoveTraders(i, tick_time);
         }
 	}
 }
@@ -177,8 +139,7 @@ double Road::CumulativeArmy(int position)
 {
     double result = 0;
     int num_crew = contingents_[position].size();
-    for (int i = 0; i < num_crew; i++)
-    {
+    for (int i = 0; i < num_crew; i++){
         result += contingents_[position][i]->GetCumulativeSyla();
     }
     return result;
@@ -190,9 +151,9 @@ void Road::TickWar(double tick_time) {
 
 	for (int i = 0; i < 2; i++) {
         if (!contingents_[i].empty()) {
-            double boundary_coordinate = GetBoundary(i, front_crew);
-            
             //std::cerr << (front_crew[i]->GetEndPercentage() + front_crew[1-i]->GetEndPercentage()) << std::endl;
+            
+            double boundary_coordinate = GetBoundary(i, front_crew);
             
             bool meeting = FrontCrewsMeet(front_crew);
 
@@ -222,6 +183,34 @@ const std::vector<City*>& Road::GetCities() const{
 double Road::GetCompleteness(int index) {
     return completeness_[index];
 }
+
+// HELPER FUNCTIONS FOR TICKTRADE
+
+void Road::UpdateCityProfit(int i, double tick_time){
+	if (contingents_[i].back()->GetEndPercentage() >= 1){
+        double profit = tick_time*trade_profit_ * contingents_[i].back()->GetThickness();
+        cities_connected_[i]->AcquireSyla(profit);
+	}	
+}
+
+void Road::SendNewTraders(int i, double tick_time){
+    if (contingents_[i].front()->GetStartPercentage() <= 0){
+        double maintenance_cost = contingents_[i].front()->GetThickness()*tick_time;
+        if (!cities_connected_[i]->LoseSyla(maintenance_cost)){
+            AddCrew(i, 0);
+        }
+    }
+}
+
+void Road::MoveTraders(int i, double tick_time){
+    for (int j = 0; j < (int) contingents_[i].size(); j++){
+        if ( !contingents_[i][j]->MoveForward(tick_time, speed_, speed_, 1, j) ){
+            contingents_[i].erase(contingents_[i].begin() + j);
+        }
+    }
+}
+
+// HELPER FUNCTIONS FOR TICKWAR
 
 std::vector<Crew*> Road::GetFrontCrew() const{
 	/*

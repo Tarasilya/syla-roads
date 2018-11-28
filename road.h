@@ -51,6 +51,12 @@ public:
     std::vector<Crew*> GetFrontCrew() const;
     ObjectView* GetView(Game* game);
     double GetCompleteness(int index);
+
+    void UpdateCityProfit(int i, double tick_time);
+	void SendNewTraders(int i, double tick_time);
+	void MoveTraders(int i, double tick_time);
+
+
     bool FrontCrewsMeet(const std::vector<Crew*>& front_crew);
     double GetAdvancementSpeed(int i, std::vector<Crew*> front_crew, bool meeting);
     double GetBoundary(int i, std::vector<Crew*> front_crew);
