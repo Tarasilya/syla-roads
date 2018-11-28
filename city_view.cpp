@@ -23,12 +23,8 @@ void CityView::Draw(Painter* painter) const {
 	
 
 	if (!selected_by_.empty()) {
-
-		std::cerr << ((City*)node_)->GetIndex() << ": ";
-		
 		Color outline_color = {0, 0, 0};
 		for (int id : selected_by_) {
-			std::cerr << id << " ";
 			outline_color.r += SELECTION_COLORS[id].r;
 			outline_color.g += SELECTION_COLORS[id].g;
 			outline_color.b += SELECTION_COLORS[id].b;
@@ -38,7 +34,6 @@ void CityView::Draw(Painter* painter) const {
 			Text text = {id == 0 ? -1 : 0.55, -1, ss.str()};     	
 			painter->Draw(text);
 		}
-		std::cerr << std::endl;
 		
 		outline_color.r /= selected_by_.size();
 		outline_color.g /= selected_by_.size();
