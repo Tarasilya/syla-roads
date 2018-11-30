@@ -1,15 +1,20 @@
 #pragma once
 
 #include <vector>
-#include "node.h"
+#include "enum.h"
+#include "game_object.h"
+#include "player.h"
 #include "object_view.h"
 
 class Player;
 class Road;
 
-class City : public Node
+class City : public GameObject
 {
 private:
+    Player* owner_;
+    double x_;
+    double y_;    
     int player_id_;
     int index_;
     std::vector<Road*> roads_;
@@ -25,16 +30,19 @@ public:
     void AcquireSyla(double syla);
     bool LoseSyla(double syla);
 
-    virtual void Tick(double tick_time) override;
+    void Tick(double tick_time) override;
 
     void AddRoad(Road* road);
     void ChangeOwner(Player* new_owner);
     void ResetCapture();
 
-    virtual double GetSyla() override;
+    Player* GetOwner();
+    double x();
+    double y();
+    double GetSyla();
     int GetIndex();
     double GetWall();
-    virtual ObjectView* GetView(Game* game) override;
+    ObjectView* GetView(Game* game) override;
     const std::vector<Road*>& GetRoads();
     int GetPlayerId();
 };

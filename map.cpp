@@ -2,7 +2,6 @@
 #include "city.h"
 #include "road.h"
 #include "game_object.h"
-#include "node.h"
 
 #include <vector>
 #include <fstream>
@@ -17,8 +16,8 @@ const std::vector<GameObject*>& Map::GetObjects() {
 	return objects_;
 }
 
-const std::vector<Node*>& Map::GetNodes() {
-	return nodes_;
+const std::vector<City*>& Map::GetCities() {
+	return cities_;
 }
 
 Map::Map(std::string filename) {
@@ -46,7 +45,7 @@ void Map::ReadObject(std::ifstream& in) {
 		in >> x >> y >> player_id;
 		std::cerr << "read city " << x << " " << y << std::endl;
 		City* city = new City(x, y, objects_.size(), player_id);
-		nodes_.push_back(city);
+		cities_.push_back(city);
 		objects_.push_back(city);
 	}
 	else {
