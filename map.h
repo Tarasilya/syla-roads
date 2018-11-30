@@ -9,7 +9,7 @@ class City;
 class Map {
 private:
 	std::vector<GameObject*> objects_;
-	std::vector<City*> nodes_;
+	std::vector<City*> cities_;
 
 	std::string filename_;
 

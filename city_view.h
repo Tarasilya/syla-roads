@@ -2,6 +2,7 @@
 
 #include "object_view.h"
 #include <utility>
+#include <set>
 
 class Painter;
 class RoadView;
@@ -19,10 +20,10 @@ private:
 	double VectorMul(Road* road1, Road* road2);
 	std::pair<double, double> RoadToVector(Road* road);
 
-	NodeView* Next(const std::function<bool(Node*, Node*)>& less, const std::function<bool(Node*, Node*)>& same);
+	CityView* Next(const std::function<bool(City*, City*)>& less, const std::function<bool(City*, City*)>& same);
 	bool IsInCloseRange(double base, double y);
 	bool IsInDirectionFromTo(double from, double to, int direction);
-	void UpdateIfBetter(NodeView*& current, Node* candidate, const std::function<bool(Node*, Node*)>& less);
+	void UpdateIfBetter(CityView*& current, City* candidate, const std::function<bool(City*, City*)>& less);
 public:
 	CityView(Game* game, City* city);
 	City* GetCity();
@@ -30,10 +31,10 @@ public:
 	void Draw(Painter* painter) const;
 	void RoadSelect();
 	bool IsRoadSelected();
-	NodeView* NextHorizontally(int direction);
-	NodeView* NextVertically(int direction);
-	NodeView* NextCityVertically(int direction);
-	NodeView* NextCityHorizontally(int direction);
+	CityView* NextHorizontally(int direction);
+	CityView* NextVertically(int direction);
+	CityView* NextCityVertically(int direction);
+	CityView* NextCityHorizontally(int direction);
 
 	void Select(int player_id);
 	void Deselect(int player_id);

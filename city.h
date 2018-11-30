@@ -4,13 +4,12 @@
 #include "enum.h"
 #include "game_object.h"
 #include "player.h"
-#include "node.h"
 #include "object_view.h"
 
 class Player;
 class Road;
 
-class City : public Node
+class City : public GameObject
 {
 private:
     Player* owner_;
@@ -31,7 +30,7 @@ public:
     void AcquireSyla(double syla);
     bool LoseSyla(double syla);
 
-    virtual void Tick(double tick_time) override;
+    void Tick(double tick_time) override;
 
     void AddRoad(Road* road);
     void ChangeOwner(Player* new_owner);
@@ -40,11 +39,10 @@ public:
     Player* GetOwner();
     double x();
     double y();
-    virtual double GetSyla();
-    virtual double GetSyla() override;
+    double GetSyla();
     int GetIndex();
     double GetWall();
-    virtual ObjectView* GetView(Game* game) override;
+    ObjectView* GetView(Game* game) override;
     const std::vector<Road*>& GetRoads();
     int GetPlayerId();
 };

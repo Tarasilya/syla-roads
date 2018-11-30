@@ -13,7 +13,7 @@
 
 const double CLOSE_RANGE = 0.001;
 
-CityView::CityView(Game* game, City* city) : game(game), city_(city), selected_road_(0) {}
+CityView::CityView(Game* game, City* city) : game_(game), city_(city), selected_road_(0) {}
 
 City* CityView::GetCity() {
 	return city_;
@@ -77,7 +77,7 @@ CityView* CityView::NextVertically(int direction) {
 	}
 }
 
-CityView* CityView::NextCityHorizontally(int direction) {
+CityView* CityView::NextHorizontally(int direction) {
 	if (selected_road_ == 0) {
 		return NextHorizontally(direction);
 	}
@@ -195,8 +195,4 @@ void CityView::Select(int player_id) {
 
 void CityView::Deselect(int player_id) {
 	selected_by_.erase(player_id);
-}
-
-bool CityView::IsRoadSelected() {
-	return false;
 }

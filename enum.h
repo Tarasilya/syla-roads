@@ -11,7 +11,7 @@ enum RoadState
 enum Actions
 {
     N, // Nothing
-    B, // Build road to another node
+    B, // Build road to another city
     S // Send traders to another city
 };
 

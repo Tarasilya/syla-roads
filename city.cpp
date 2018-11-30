@@ -54,15 +54,8 @@ void City::AcquireSyla(double syla){
 }
 
 double City::GetSyla()
-{
-    double result = syla_reserve_;
-    
-    /*for (int i = 0; i < roads_.size(); i++)
-    {
-        result += roads_[i]->CumulativeArmy(roads_[i]->GetCityPositionInVectors(index_));
-    }
-    */
-    return result;
+{    
+    return syla_reserve_;
 }
 
 void City::SendCrew(double syla_rate, Road* target_road)
@@ -102,19 +95,15 @@ const std::vector<Road*>& City::GetRoads() {
 	return roads_;
 }
 
-double Node::x() {
+double City::x() {
     return x_;
 }
 
-double Node::y() {
+double City::y() {
     return y_;
 }
 
-double Node::GetSyla() {
-    return 0;
-}
-
-Player* Node::GetOwner()
+Player* City::GetOwner()
 {
     return owner_;
 }

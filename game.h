@@ -5,11 +5,11 @@
 
 class GameObject;
 class ObjectView;
-class Node;
 class Player;
 class Painter;
 class Map;
 class GameConfig;
+class City;
 
 class Game {
 private:
@@ -31,6 +31,6 @@ public:
 	void Draw();
 	void ProcessKey(sf::Keyboard::Key key);
 	void Tick(double dt);
-	const std::vector<Node*>& GetNodes() const;
+	const std::vector<City*>& GetCities() const;
 	std::vector<double> GetScores();
 };

@@ -3,14 +3,13 @@
 #include "road.h"
 #include "player.h"
 #include "control_keys.h"
-#include "node.h"
-#include "node_view.h"
 #include "road_view.h"
+#include "city_view.h"
 
 #include <iostream>
 
 
-Player::Player(std::map<sf::Keyboard::Key, Control> controls, NodeView* baseView, int id) 
+Player::Player(std::map<sf::Keyboard::Key, Control> controls, CityView* baseView, int id) 
 	: baseView_(baseView), 
 	focusedView_(0), 
 	controls_(controls),
@@ -78,7 +77,7 @@ bool Player::ProcessKey(sf::Keyboard::Key key) {
 	if (focusedView_ != 0) {
 		if (focusedView_->IsRoadSelected()){
 			Road* current_road = focusedView_->GetSelectedRoad()->GetRoad();
-			City* current_city = (City*) focusedView_->GetNode();
+			City* current_city = focusedView_->GetCity();
 			if (current_city->GetOwner() == this){
 				if (controls_[key] == BUILD && current_road->GetState() == CONSTRUCTION){
 					current_city->SendCrew(5, current_road);
@@ -110,7 +109,7 @@ bool Player::ProcessKey(sf::Keyboard::Key key) {
 
 }
 
-void Player::FocusOn(NodeView* view) {
+void Player::FocusOn(CityView* view) {
 	if (focusedView_) {
 		focusedView_->Deselect(id_);
 	}

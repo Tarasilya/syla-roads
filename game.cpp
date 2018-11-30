@@ -86,7 +86,7 @@ void Game::Tick(double dt)
 std::vector<double> Game::GetScores()
 {
 	std::vector<double> scores(2, 0);
-	for (auto City: GetCities())
+	for (auto city: GetCities())
 	{
 		for (int i = 0; i < 2; i++)
 		{
