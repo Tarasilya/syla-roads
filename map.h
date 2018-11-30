@@ -4,12 +4,12 @@
 #include <vector>
 
 class GameObject;
-class Node;
+class City;
 
 class Map {
 private:
 	std::vector<GameObject*> objects_;
-	std::vector<Node*> nodes_;
+	std::vector<City*> nodes_;
 
 	std::string filename_;
 
@@ -19,5 +19,5 @@ private:
 public:
 	Map(std::string filename);
 	const std::vector<GameObject*>& GetObjects();
-	const std::vector<Node*>& GetNodes();
+	const std::vector<City*>& GetCities();
 };

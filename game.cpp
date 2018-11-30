@@ -6,7 +6,6 @@
 #include "road.h"
 #include "city.h"
 #include "game_object.h"
-#include "node.h"
 #include "player.h"
 #include "map.h"
 #include "game_config.h"
@@ -16,10 +15,9 @@ Game::Game(Painter* painter, GameConfig* config) {
 	InitMap();
 	InitViews();
 	for (int i = 0; i < 2; i++) {
-		players_.push_back(new Player(config->GetControls(i), (NodeView*) GetNodes()[0]->GetView(this), i));
+		players_.push_back(new Player(config->GetControls(i), (CityView*) GetCities()[0]->GetView(this), i));
 	}
-	for (auto node: map_->GetNodes()) {
-		City* city = (City*) node;
+	for (auto city: map_->GetCities()) {
 		int pid = city->GetPlayerId();
 		if (pid != -1) {
 			city->ChangeOwner(players_[pid]);
@@ -88,19 +86,19 @@ void Game::Tick(double dt)
 std::vector<double> Game::GetScores()
 {
 	std::vector<double> scores(2, 0);
-	for (auto node: GetNodes())
+	for (auto City: GetCities())
 	{
 		for (int i = 0; i < 2; i++)
 		{
-			if (node->GetOwner() == players_[i])
+			if (city->GetOwner() == players_[i])
 			{
-				scores[i] += node->GetSyla();
+				scores[i] += city->GetSyla();
 			}
 		}
 	}
 	return scores;
 }
 
-const std::vector<Node*>& Game::GetNodes() const {
-	return map_->GetNodes();
+const std::vector<City*>& Game::GetCities() const {
+	return map_->GetCities();
 }

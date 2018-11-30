@@ -1,6 +1,9 @@
 #pragma once
 
 #include <vector>
+#include "enum.h"
+#include "game_object.h"
+#include "player.h"
 #include "node.h"
 #include "object_view.h"
 
@@ -10,6 +13,9 @@ class Road;
 class City : public Node
 {
 private:
+    Player* owner_;
+    double x_;
+    double y_;    
     int player_id_;
     int index_;
     std::vector<Road*> roads_;
@@ -31,6 +37,10 @@ public:
     void ChangeOwner(Player* new_owner);
     void ResetCapture();
 
+    Player* GetOwner();
+    double x();
+    double y();
+    virtual double GetSyla();
     virtual double GetSyla() override;
     int GetIndex();
     double GetWall();
