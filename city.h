@@ -21,6 +21,7 @@ private:
     double syla_reserve_;
     double syla_capacity_;
     double wall_;
+    double texas_tax_collection_rate_;
 
 public:
     City(double x_coord, double y_coord, int index, int player_id);

@@ -28,7 +28,7 @@ Road::Road(std::vector<City*> cities){
     completeness_.assign(2, 0);
     speed_ = 6;
     cost_ = 5;
-    trade_profit_ = 1.1;
+    trade_profit_ = 0.8;
 }
 
 
@@ -134,6 +134,8 @@ void Road::TickTrade(double tick_time){
 	}
 }
 
+
+
 double Road::CumulativeArmy(int position)
 {
     double result = 0;
@@ -186,7 +188,7 @@ double Road::GetCompleteness(int index) {
 void Road::UpdateCityProfit(int i, double tick_time){
 	if (contingents_[i].back()->GetEndPercentage() >= 1){
         double profit = tick_time*trade_profit_ * contingents_[i].back()->GetThickness();
-        cities_connected_[i]->AcquireSyla(profit);
+        cities_connected_[!i]->AcquireSyla(profit);
 	}	
 }
 
@@ -275,3 +277,16 @@ void Road::Siege(int i, std::vector<Crew*> front_crew, double tick_time, double 
         }
     }
 }
+
+// void Road::TickTrade(double tick_time){
+// 	for (int i = 0; i < 2; i++){
+//         if  (contingents_[i].size()){
+
+//         	UpdateCityProfit(i, tick_time);
+            
+//             SendNewTraders(i, tick_time);
+
+//             MoveTraders(i, tick_time);
+//         }
+// 	}
+// }
