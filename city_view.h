@@ -1,6 +1,7 @@
 #pragma once
 
 #include "object_view.h"
+#include <functional>
 #include <utility>
 #include <set>
 
@@ -21,8 +22,8 @@ private:
 	std::pair<double, double> RoadToVector(Road* road);
 
 	CityView* Next(const std::function<bool(City*, City*)>& less, const std::function<bool(City*, City*)>& same);
-	bool IsInCloseRange(double base, double y);
 	bool IsInDirectionFromTo(double from, double to, int direction);
+	bool IsInCloseRange(double base, double y);
 	void UpdateIfBetter(CityView*& current, City* candidate, const std::function<bool(City*, City*)>& less);
 public:
 	CityView(Game* game, City* city);

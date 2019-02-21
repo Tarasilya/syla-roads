@@ -9,12 +9,7 @@ class City;
 class Map {
 private:
 	std::vector<GameObject*> objects_;
-<<<<<<< HEAD
 	std::vector<City*> cities_;
-
-=======
-	std::vector<Node*> nodes_;
->>>>>>> refactored city and map
 	std::string filename_;
 	Map();
 	void ReadObjects();
