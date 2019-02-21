@@ -26,7 +26,7 @@ private:
 	void InitViews();
 	
 public: 
-	Game(Painter* painter, GameConfig* config);
+	Game(Painter* painter, GameConfig& config);
 	void Run();
 	void Draw();
 	void ProcessKey(sf::Keyboard::Key key);

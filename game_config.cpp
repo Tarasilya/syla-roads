@@ -4,8 +4,8 @@
 #include <iostream>
 #include <fstream>
 
-GameConfig::GameConfig(std::string filename) {
-	std::ifstream in(filename);
+GameConfig::GameConfig() {
+	std::ifstream in("config.txt");
 	std::string name, value;
 	while (in >> name) {
 		in >> value;
@@ -16,6 +16,14 @@ GameConfig::GameConfig(std::string filename) {
 
 std::string GameConfig::GetString(std::string name) {
 	return params_[name];
+}
+
+int GameConfig::GetInt(std::string name) {
+	return std::stoi(params_[name]);
+}
+
+float GameConfig::GetFloat(std::string name) {
+	return std::stof(params_[name]);
 }
 
 std::map<sf::Keyboard::Key, Control> GameConfig::GetControls(int player_index) {

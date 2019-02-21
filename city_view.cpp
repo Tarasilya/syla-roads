@@ -79,7 +79,7 @@ CityView* CityView::NextVertically(int direction) {
 
 CityView* CityView::NextHorizontally(int direction) {
 	if (selected_road_ == 0) {
-		return NextHorizontally(direction);
+		return NextCityHorizontally(direction);
 	}
 	else {
 		const std::vector<Road*> roads = city_->GetRoads();

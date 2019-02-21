@@ -10,12 +10,12 @@
 #include "map.h"
 #include "game_config.h"
 
-Game::Game(Painter* painter, GameConfig* config) {
+Game::Game(Painter* painter, GameConfig& config) {
 	painter_ = painter;
 	InitMap();
 	InitViews();
 	for (int i = 0; i < 2; i++) {
-		players_.push_back(new Player(config->GetControls(i), (CityView*) GetCities()[0]->GetView(this), i));
+		players_.push_back(new Player(config.GetControls(i), (CityView*) GetCities()[0]->GetView(this), i));
 	}
 	for (auto city: map_->GetCities()) {
 		int pid = city->GetPlayerId();
