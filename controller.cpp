@@ -8,7 +8,7 @@
 void Controller::Run() {
 	window_ = new sf::RenderWindow(sf::VideoMode(1000, 1000), "SYLA");
 	Painter* painter = new Painter(window_);
-	GameConfig* config = new GameConfig("config.txt");
+	GameConfig& config = GameConfig::getInstance();
 	game_ = new Game(painter, config);
 
 	double t = clock();

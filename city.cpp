@@ -11,7 +11,7 @@
 // Vynosim konstanty:
 
 City::City(double x_coord, double y_coord, int index, int player_id) :
-    index_(index), syla_reserve_(200), syla_capacity_(200), wall_(100), player_id_(player_id)
+    index_(index), syla_reserve_(200), syla_capacity_(200), wall_(100), player_id_(player_id), owner_(0)
 {
     x_ = x_coord;
     y_ = y_coord;
