@@ -1,14 +1,16 @@
-#include <iostream>
-#include <cmath>
-#include <sstream>
 #include "game.h"
-#include "painter.h"
 #include "road.h"
 #include "city.h"
 #include "game_object.h"
 #include "player.h"
 #include "map.h"
 #include "game_config.h"
+
+#include "painter/painter.h"
+
+#include <iostream>
+#include <cmath>
+#include <sstream>
 
 Game::Game(Painter* painter, GameConfig& config) {
 	painter_ = painter;
@@ -26,7 +28,7 @@ Game::Game(Painter* painter, GameConfig& config) {
 }
 
 void Game::InitMap() {
-	map_ = new Map("SMALL.map");
+	map_ = new Map("maps/SMALL.map");
 
 	total_time_ = 0;
 	seconds_ = 0;

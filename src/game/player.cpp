@@ -8,7 +8,6 @@
 
 #include <iostream>
 
-
 Player::Player(std::map<sf::Keyboard::Key, Control> controls, CityView* baseView, int id) 
 	: baseView_(baseView), 
 	focusedView_(0), 

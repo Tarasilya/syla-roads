@@ -2,9 +2,10 @@
 #include "enum.h"
 #include "city.h"
 #include "crew.h"
-#include "painter.h"
-#include "shapes.h"
 #include "road_view.h"
+
+#include "painter/painter.h"
+#include "painter/shapes.h"
 
 #include <cmath>
 #include <sstream>

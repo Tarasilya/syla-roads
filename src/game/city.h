@@ -1,10 +1,11 @@
 #pragma once
 
-#include <vector>
 #include "enum.h"
 #include "game_object.h"
 #include "player.h"
 #include "object_view.h"
+
+#include <vector>
 
 class Player;
 class Road;

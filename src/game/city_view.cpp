@@ -1,9 +1,10 @@
 #include "city_view.h"
-#include "painter.h"
 #include "city.h"
 #include "road_view.h"
-#include "sizes.h"
 #include "game.h"
+
+#include "painter/sizes.h"
+#include "painter/painter.h"
 
 #include <functional>
 #include <cmath>

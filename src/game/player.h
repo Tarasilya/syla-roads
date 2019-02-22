@@ -5,6 +5,7 @@
 #include <SFML/Window.hpp>
 
 #include <map>
+
 class CityView;
 
 class Player {

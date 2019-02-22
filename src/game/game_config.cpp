@@ -1,5 +1,6 @@
 #include "game_config.h"
-#include "utils.h"
+
+#include "utils/utils.h"
 
 #include <iostream>
 #include <fstream>

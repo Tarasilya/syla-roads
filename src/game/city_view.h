@@ -1,6 +1,7 @@
 #pragma once
 
 #include "object_view.h"
+
 #include <functional>
 #include <utility>
 #include <set>

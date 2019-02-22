@@ -1,8 +1,9 @@
 #include "road.h"
 #include "city.h"
-#include "painter.h"
-#include "shapes.h"
 #include "city_view.h"
+
+#include "painter/shapes.h"
+#include "painter/painter.h"
 
 #include <algorithm>
 #include <sstream>
