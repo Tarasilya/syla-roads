@@ -10,8 +10,14 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${LINKER_FLAGS}")
 set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++11" )
 
 file(GLOB SOURCES "src/**/*.cpp")
+file(GLOB CLIENT "client/*.cpp")
+file(GLOB SERVER "server/*.cpp")
 
 add_executable(syla ${SOURCES}) 
+add_executable(cli ${CLIENT}) 
+add_executable(ser ${SERVER}) 
+
+
 target_include_directories(syla PRIVATE src)
 if (UNIX AND NOT APPLE) 
 target_link_libraries(syla -L/usr/local/lib)
