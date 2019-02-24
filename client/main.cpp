@@ -2,13 +2,12 @@
 #include <SFML/Network.hpp>
 
 using namespace std;
-char* SERVER_NAME;
+char* SERVER_NAME = "127.0.0.1";
 int SERVER_PORT = 44444;
 
 int main() {
 	// return 1;
 	sf::TcpSocket socket;
-	socket.setBlocking(false);
 	sf::Socket::Status status = socket.connect(SERVER_NAME, SERVER_PORT);
 
 	std::string s;
