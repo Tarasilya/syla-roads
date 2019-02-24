@@ -3,7 +3,7 @@
 
 using namespace std;
 char* SERVER_NAME;
-int SERVER_PORT;
+int SERVER_PORT = 44444;
 
 int main() {
 	// return 1;
@@ -11,10 +11,12 @@ int main() {
 	socket.setBlocking(false);
 	sf::Socket::Status status = socket.connect(SERVER_NAME, SERVER_PORT);
 
-	sf::Uint16 x = 27;
-	std::string s = "Citizen";
-	sf::Packet packet;
-	packet << x << s;
-	socket.send(packet);
-
+	std::string s;
+	while(true){
+		std::cin >> s;
+		sf::Packet packet;
+		packet << s;
+		socket.send(packet);
+	}
+	
 }
