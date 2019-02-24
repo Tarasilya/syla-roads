@@ -8,3 +8,5 @@ syla
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
+cli
+ser
