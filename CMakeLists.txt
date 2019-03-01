@@ -10,11 +10,10 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${LINKER_FLAGS}")
 set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++11" )
 
 file(GLOB SOURCES src/game/*.cpp src/painter/*.cpp src/utils/*.cpp client/*.cpp)
-file(GLOB SERVER "server/*.cpp")
+file(GLOB SERVER "src/network/*.cpp")
 
 add_executable(syla ${SOURCES}) 
 add_executable(ser ${SERVER}) 
-
 
 target_include_directories(syla PRIVATE src)
 
@@ -27,5 +26,4 @@ target_link_libraries(syla -lsfml-network)
 target_link_libraries(ser -L/usr/local/lib)
 target_link_libraries(ser -lsfml-system)
 target_link_libraries(ser -lsfml-network)
-target_link_libraries(ser -lpthread)
 endif()
