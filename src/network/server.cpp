@@ -5,6 +5,7 @@
 #include <mutex>
 #include <thread>
 #include <chrono>
+#include <memory>
 
 const int PORT = 44444;
 const int PLAYERS = 2;
@@ -22,13 +23,13 @@ int main() {
     }
     cerr << "listening to " << PORT << std::endl;
 
-    std::vector<sf::TcpSocket> sockets;
+    std::vector<std::unique_ptr<sf::TcpSocket>> sockets (2);
 
     for (int i = 0; i < PLAYERS; i++) {
         std::cerr << "trying to accept " << i << std::endl;
-        sf::TcpSocket socket;
-        socket.setBlocking(false);
-        if (listener.accept(socket) != sf::Socket::Done)
+        sockets[i] = std::make_unique<sf::TcpSocket>();
+        sockets[i]->setBlocking(false);
+        if (listener.accept(*sockets[i]) != sf::Socket::Done)
         {
             cerr << "ERROR ACCEPTING " << i << std::endl;
             exit(1);
@@ -39,8 +40,8 @@ int main() {
     while(true) {
         for (int i = 0; i < PLAYERS; i++) {
             sf::Packet packet;
-            if (sockets[i].receive(packet) == sf::TcpSocket::Status::Done) {
-                sockets[1-i].send(packet);
+            if (sockets[i]->receive(packet) == sf::TcpSocket::Status::Done) {
+                sockets[1-i]->send(packet);
                 std::cerr << "vam posilka" << std::endl;
             }
         }
