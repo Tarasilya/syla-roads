@@ -24,6 +24,7 @@ void Controller::Run() {
 
 	        if (event.type == sf::Event::KeyPressed) {
                 ProcessKey(event.key.code);
+
 	        }
 	    }
 	    clock_t dt = clock() - t;
