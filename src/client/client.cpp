@@ -39,6 +39,7 @@ std::vector<sf::Keyboard::Key> Client::Receive(){
     std::vector<sf::Keyboard::Key> keys;
     sf::Packet packet;
     while (socket.receive(packet) == sf::TcpSocket::Status::Done){
+        std::cout << "received" << "\n";
         sf::Keyboard::Key key;
         packet >> key;
         keys.push_back(key);

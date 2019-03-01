@@ -21,3 +21,6 @@ ACT_LOW1 Num8
 ACT_MEDIUM1 Num9
 ACT_HIGH1 N
 DECLARE_WAR1 M
+
+server_name localhost
+server_port 44444

@@ -5,6 +5,7 @@
 class Client{
 	sf::TcpSocket socket;
 
+public:
 	Client();
 
 	void Send(sf::Keyboard::Key key);
