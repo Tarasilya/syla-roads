@@ -10,8 +10,6 @@
 #include "client.h"
 
 using namespace std;
-char* SERVER_NAME = "localhost";
-int SERVER_PORT = 44444;
 
 sf::Packet& operator <<(sf::Packet& packet, sf::Keyboard::Key& key){
     packet << (int) key;
@@ -30,7 +28,7 @@ Client::Client(){
 
 
     std::string server_name = config.GetString("server_name");
-    int  server_port = config.GetInt("server_port");
+    int server_port = config.GetInt("server_port");
     // get server_name and server_port
 
     socket.setBlocking(false);

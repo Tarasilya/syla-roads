@@ -9,7 +9,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${LINKER_FLAGS}")
 
 set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++11" )
 
-file(GLOB SOURCES src/game/*.cpp src/painter/*.cpp src/utils/*.cpp client/*.cpp)
+file(GLOB SOURCES src/game/*.cpp src/painter/*.cpp src/utils/*.cpp src/client/*.cpp)
 file(GLOB SERVER "src/network/*.cpp")
 
 add_executable(syla ${SOURCES}) 
